@@ -9,3 +9,6 @@ node_modules/
 
 # Ignore package-lock.json
 package-lock.json
+
+# Ignore .DS_Store
+.DS_Store
