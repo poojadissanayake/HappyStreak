@@ -1,0 +1,21 @@
+{
+  "name": "happystreak",
+  "version": "1.0.0",
+  "description": "A Mental Health Web application for university students.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pooja Dissanayake",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^5.1.1",
+    "express": "^4.19.2",
+    "mocha": "^10.7.3",
+    "mongodb": "^6.8.0",
+    "socket.io": "^4.7.5"
+  }
+}
