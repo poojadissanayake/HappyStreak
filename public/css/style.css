@@ -1,0 +1,91 @@
+/* overall format */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+}
+
+/* header and navigation bar */
+header {
+    background-color: #B1AFFF;
+    padding: 1rem;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 2rem;
+    background-color: #B1AFFF;
+}
+
+.search-bar {
+    padding: 0.8rem;
+    border-radius: 20px;
+    border: none;
+    width: 200px;
+}
+
+.nav-title {
+    flex: 2; 
+    text-align: center;
+}
+
+.nav-title a {
+    text-decoration: none; 
+    color: black;
+}
+
+.nav-title h1 {
+    font-size: 2rem;
+    color: black;
+    text-transform: uppercase;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: black;
+    text-decoration: none; 
+    font-size: 1.2rem;
+}
+
+.nav-links a:hover {
+    color: #FDF7C3; 
+}
+.profile-icon {
+    margin-left: 1.5rem;
+}
+
+.profile-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* footer */
+footer {
+    background-color: #f8f8f8;
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+}
+
+footer p {
+    color: #666;
+    font-size: 0.9rem;
+}
