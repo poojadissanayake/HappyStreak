@@ -1,0 +1,50 @@
+main {
+  background-color: #fdf7c3;
+  height: 90vh;
+}
+
+.trendChlBoard {
+  text-align: center;
+  padding-top: 60px;
+}
+
+.trendChlBoard p {
+  margin-bottom: 20px;
+}
+
+.trendChlBox {
+  background-color: white;
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  padding: 25px;
+}
+
+.trendChlBox img {
+  margin: auto;
+}
+
+.dfChallengesboard {
+  padding: 25px;
+  width: 60%;
+  margin: auto;
+  margin-top: 15px;
+}
+
+.suggestion {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.dfChallenges {
+  display: flex;
+}
+
+.dfChallenges div {
+  border: black 1px solid;
+  width: 128px;
+  height: 102px;
+  padding: 20px;
+  margin-right: 15px;
+}
