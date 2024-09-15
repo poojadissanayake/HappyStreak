@@ -7,11 +7,13 @@
     "test": "tests"
   },
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Pooja Dissanayake",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "chai": "^5.1.1",
     "express": "^4.21.0",
     "mocha": "^10.7.3",
