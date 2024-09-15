@@ -20,13 +20,5 @@
     "mongodb": "^6.8.0",
     "save": "^2.9.0",
     "socket.io": "^4.7.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/poojadissanayake/HappyStreak.git"
-  },
-  "bugs": {
-    "url": "https://github.com/poojadissanayake/HappyStreak/issues"
-  },
-  "homepage": "https://github.com/poojadissanayake/HappyStreak#readme"
+  }
 }
