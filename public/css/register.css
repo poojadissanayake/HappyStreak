@@ -1,0 +1,70 @@
+.card {
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 auto;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    top: 50px;
+}
+
+.card input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
+}
+
+.card button {
+    background-color: #B1AFFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.card button:hover {
+    background-color: #91DDCF;
+}
+
+.login-link {
+    text-align: center; 
+    margin-top: 20px;
+    width: 100%;
+}
+
+.login-link p {
+    margin-bottom: 10px; 
+}
+
+.login-link a {
+    color: #B1AFFF;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    color: #91DDCF;
+}
