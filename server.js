@@ -8,12 +8,20 @@ const db = getDB();
 // Connect to the database when the server starts
 connectDB();
 
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve index.html from the 'views' folder
+// // Serve index.html from the 'views' folder
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'views', 'index.html'));
+// });
+
+// Route for rendering the landing page using EJS
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+    res.render('index'); // render 'index.ejs' in 'views' folder
 });
 
 
