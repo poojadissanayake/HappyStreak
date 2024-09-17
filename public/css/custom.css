@@ -72,6 +72,13 @@ button.btn-custom:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
+.team-card {
+    background-color: var(--smooth-bg) !important;
+    color: var(--text-primary-color) !important;
+    border: none !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
 .features-section {
     background-image: url('/images/background.jpg');
     background-size: cover;
