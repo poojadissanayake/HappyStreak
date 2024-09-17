@@ -1,0 +1,19 @@
+const express = require('express');
+const router = express.Router();
+
+// Route for rendering the landing page using EJS
+router.get('/', (req, res) => {
+    res.render('index'); // render 'index.ejs' in 'views' folder
+});
+
+// About route
+router.get('/about', (req, res) => {
+    res.render('about');
+});
+
+// Contact route
+router.get('/contact', (req, res) => {
+    res.render('contact');
+});
+
+module.exports = router;
