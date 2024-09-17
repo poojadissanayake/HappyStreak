@@ -21,6 +21,16 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+// Register route
+router.get('/register', (req, res) => {
+    res.render('register');
+});
+
+// Forgot password route
+router.get('/forgotpassword', (req, res) => {
+    res.render('forgotpassword');
+});
+
 // Profile route
 router.get('/profile', (req, res) => {
     res.render('userprofile');

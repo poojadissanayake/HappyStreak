@@ -11,15 +11,27 @@
         <!-- Include Navbar -->
         <%- include('navbar') %>
 
-        <!-- Main Section: Login Form -->
-        <section class="login-section py-5">
+        <!-- Main Section: Register Form -->
+        <section class="register-section py-5">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="card custom-card">
                             <div class="card-body">
-                                <h2 class="text-center">Login</h2>
-                                <form action="login.html" method="post">
+                                <h2 class="text-center">Register</h2>
+                                <form action="register.html" method="post">
+                                    <!-- Name Input -->
+                                    <div class="form-group mb-3">
+                                        <label for="name">Enter Name:</label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                                    </div>
+
+                                    <!-- Date of Birth Input -->
+                                    <div class="form-group mb-3">
+                                        <label for="dob">Enter Date of Birth:</label>
+                                        <input type="date" class="form-control" id="dob" name="dob" required>
+                                    </div>
+
                                     <!-- Email Input -->
                                     <div class="form-group mb-3">
                                         <label for="email">Enter Email:</label>
@@ -32,15 +44,14 @@
                                         <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                     </div>
 
-                                    <!-- Login Button -->
+                                    <!-- Register Button -->
                                     <div class="d-grid">
-                                        <button type="submit" class="btn btn-custom btn-block">Login</button>
+                                        <button type="submit" class="btn btn-custom btn-block">Register</button>
                                     </div>
 
-                                    <!-- Login Links -->
-                                    <div class="text-center mt-2 login-link"> <!-- Reduced margin-top here -->
-                                        <p><a href="forgotpassword">Forgot Password?</a></p>
-                                        <p>or <a href="register">Register</a></p>
+                                    <!-- Login Link -->
+                                    <div class="text-center mt-4 login-link">
+                                        <p>or <a href="login">Login</a></p>
                                     </div>
                                 </form>
                             </div>
