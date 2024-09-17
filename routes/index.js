@@ -21,4 +21,9 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+// Userprofile route
+router.get('/userprofile', (req, res) => {
+    res.render('userprofile');
+});
+
 module.exports = router;
