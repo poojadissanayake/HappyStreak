@@ -1,119 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Team HappyStreak" />
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Team HappyStreak">
+    <!--Title of the page-->
+    <title>HappyStreak: Turn Streaks into Success</title>
 
-        <!--Title of the page-->
-        <title>HappyStreak: Turn Streaks into Success</title>
+    <!--link to landing page css-->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashBoard.css" />
+    <!--link to location fa-map-marker-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
 
-        <!--link to landing page css-->
-        <link rel="stylesheet" href="css/style.css"> 
-        <link rel="stylesheet" href="css/dashBoard.css"> 
-        <!--link to location fa-map-marker-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
+  <body>
+    <header>
+      <!--navigation bar-->
+      <nav>
+        <!--search bar-->
+        <input type="text" placeholder="Search" class="search-bar" />
+        <!-- Title in the middle -->
+        <div class="nav-title">
+          <a href="index.html"><h1>HAPPYSTREAK</h1></a>
+          <!--link back to homepage-->
+        </div>
+        <!-- Links on the right -->
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="#">Dashboard</a></li>
+            <!--pending link-->
+            <li><a href="#">Goals</a></li>
+            <!--pending link-->
+            <li><a href="#">Challenges</a></li>
+            <!--pending link-->
+          </ul>
+        </div>
+        <!--Avatar of User-->
+        <div class="profile-icon">
+          <a href="userprofile.html">
+            <img
+              src="images/avatars/avatarskateboard.png"
+              alt="avatar"
+            /><!--link to profile page-->
+          </a>
+        </div>
+      </nav>
+    </header>
 
-    <body>
-        <header>
-        <!--navigation bar-->
-            <nav>
-                <!--search bar-->
-                <input type="text" placeholder="Search" class="search-bar">
-                <!-- Title in the middle -->
-                    <div class="nav-title">
-                        <a href="index.html"><h1>HAPPYSTREAK</h1></a> <!--link back to homepage-->
-                    </div>
-                    <!-- Links on the right -->
-                     <div class="nav-right">
-                        <ul class ="nav-links">
-                            <li><a href="#">Dashboard</a></li> <!--pending link-->
-                            <li><a href="#">Goals</a></li> <!--pending link-->
-                            <li><a href="#">Challenges</a></li> <!--pending link-->
-                        </ul>
-                    </div>
-                    <!--Avatar of User-->
-                    <div class ="profile-icon">
-                        <a href="userprofile.html">
-                            <img src="images/avatars/avatarskateboard.png" alt="avatar"><!--link to profile page-->
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-        <!--main page-->
-        <main class="container">
-            <div class="userProfile">
-                <div class ="profile">
-                        <a href="userprofile.html">
-                            <img src="images/avatars/avatarskateboard.png" alt="avatar"><!--link to profile page-->
-                        </a>
-                        <h2 style=" margin-top: 10px;">Arisa Trew</h2>
-                        <p style="color: #777; margin-top: 5px;"><i  class="fa fa-map-marker" style="font-size:24px"></i> Melbourne</p>
-                 </div>
-                <div class="challenges-completed">
-                            <br>
-                            <h3>Last 4 Weeks</h3>
-                            <p class="number-challenges-completed">28</p>
-                            <p>Challenges</p>
-                        </div>
-                <div class="streak">
-                            <br>
-                            <h2><b>Streak</b></h2>
-                            <p class="streak-days">13 days <span class="streak-icon">&#128293;</span></p>
-                 </div>
+    <!--main page-->
+    <main class="container">
+      <div class="userProfile">
+        <div class="profile">
+          <a href="userprofile.html">
+            <img
+              src="images/avatars/avatarskateboard.png"
+              alt="avatar"
+            /><!--link to profile page-->
+          </a>
+          <h2 style="margin-top: 10px">Arisa Trew</h2>
+          <p style="color: #777; margin-top: 5px">
+            <i class="fa fa-map-marker" style="font-size: 24px"></i> Melbourne
+          </p>
+        </div>
+        <div class="challenges-completed">
+          <br />
+          <h3>Last 4 Weeks</h3>
+          <p class="number-challenges-completed">28</p>
+          <p>Challenges</p>
+        </div>
+        <div class="streak">
+          <br />
+          <h2><b>Streak</b></h2>
+          <p class="streak-days">
+            13 days <span class="streak-icon">&#128293;</span>
+          </p>
+        </div>
+      </div>
+      <div class="rightContainer">
+        <div>
+          <h2>Leadboard</h2>
+          <div class="leadBoard">
+            <img
+              class="avatar"
+              src="./images/avatars/avatarskateboard.png"
+              alt=""
+            />
+            <div class="player-info">
+              <h2>Keegan Palmer</h2>
+              <p class="challenges-count">99 Challenges</p>
             </div>
-            <div class="rightContainer">
-                <div>
-                    <h2>Leadboard</h2>
-                    <div class="leadBoard">
-                        <img class="avatar" src="./images/avatars/avatarskateboard.png" alt="">
-                        <div class="player-info">
-                        <h2>Keegan Palmer</h2>
-                        <p class="challenges-count">99 Challenges</p>
-                    </div>
-                        <img  src="./images/icons/1st.png" alt="">
-                    </div>
-                     <div class="leadBoard">
-                        <img class="avatar" src="./images/avatars/avatarskateboard.png" alt="">
-                        <div class="player-info">
-                        <h2>Chloe Covell</h2>
-                        <p class="challenges-count">99 Challenges</p>
-                    </div>
-                        <img  src="./images/icons/2nd.png" alt="">
-                    </div>
-                     <div class="leadBoard">
-                        <img class="avatar" src="./images/avatars/avatarskateboard.png" alt="">
-                        <div class="player-info">
-                        <h2>Arisa Trew</h2>
-                        <p class="challenges-count">99 Challenges</p>
-                    </div>
-                        <img  src="./images/icons/3rd.png" alt="">
-                    </div>
-                    
-                    
-                    
-                </div>
-                <div>
-                    Trophy Case
-                </div>
+            <img src="./images/icons/1st.png" alt="" />
+          </div>
+          <div class="leadBoard">
+            <img
+              class="avatar"
+              src="./images/avatars/avatarskateboard.png"
+              alt=""
+            />
+            <div class="player-info">
+              <h2>Chloe Covell</h2>
+              <p class="challenges-count">99 Challenges</p>
             </div>
-            
-        </main>
-
-        <!--footer-->
-        <footer>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col">
-                        <p class="m-0"> Copyrighted &copy; 2024 HappyStreak. All Rights Reserved. </p>
-                    </div>
-                </div>
+            <img src="./images/icons/2nd.png" alt="" />
+          </div>
+          <div class="leadBoard">
+            <img
+              class="avatar"
+              src="./images/avatars/avatarskateboard.png"
+              alt=""
+            />
+            <div class="player-info">
+              <h2>Arisa Trew</h2>
+              <p class="challenges-count">99 Challenges</p>
             </div>
-        </footer>
+            <img src="./images/icons/3rd.png" alt="" />
+          </div>
+        </div>
+        <div class="trophy">
+          <h2>Trophy Case</h2>
+          <div class="mainTrophy">
+            <div class="trophyContainer">
+              <img src="./images/icons/5ktrophy.png" alt="" />
+              <p>5k Runner</p>
+            </div>
+            <div class="trophyContainer">
+              <img src="./images/icons/fitnesstrophy.png" alt="" />
+              <p>Fitness Guru</p>
+            </div>
+            <div class="trophyContainer">
+              <img src="./images/icons/socialbutterflymedal.png" alt="" />
+              <p>Social Butterfly</p>
+            </div>
+            <div>
+              <a href="">32 more to collect</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
-    </body>
+    <!--footer-->
+    <footer>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <p class="m-0">
+              Copyrighted &copy; 2024 HappyStreak. All Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
