@@ -16,4 +16,9 @@ router.get('/contact', (req, res) => {
     res.render('contact');
 });
 
+// Login route
+router.get('/login', (req, res) => {
+    res.render('login');
+});
+
 module.exports = router;
