@@ -1,0 +1,145 @@
+main {
+  max-width: 1800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.container {
+  display: flex;
+}
+
+.profile img {
+  width: 200px;
+  height: 200px;
+}
+
+.userProfile {
+  margin: 10px;
+  padding: 10px;
+  width: 25%;
+  padding: 20px;
+  text-align: center;
+}
+
+.challenges-completed {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.number-challenges-completed {
+  font-size: 90px;
+  font-weight: bold;
+  color: black;
+}
+
+.streak {
+  width: 200px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #e8c5e5;
+  text-align: center;
+  margin-top: 40px;
+  margin-left: 60px;
+}
+
+.streak-days {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+}
+
+.streak-icon {
+  font-size: 30px;
+  color: #ff6600;
+}
+
+.leadBoard {
+  background-color: #e8c5e5;
+  padding: 20px;
+  width: 800px;
+  height: 100px;
+  border-radius: 15px;
+  border: 0.4px rgb(185, 178, 178) solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  position: relative;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+}
+
+.player-info {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.player-info h2 {
+  margin: 0;
+}
+
+.challenges-count {
+  margin: 5px 0 0;
+  font-weight: lighter;
+}
+
+.leadBoard img:last-child {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.trophy {
+  margin-top: 25px;
+}
+
+.mainTrophy {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: end;
+  margin-top: 10px;
+  gap: 30px;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.trophyContainer {
+  background-color: #fdf7c4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  border-radius: 10px;
+  gap: 5px;
+}
+
+.trophyContainer img {
+  width: 120px;
+  height: 120px;
+  margin: 0 20px;
+}
+
+.trophyContainer p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mainTrophy a {
+  font-style: italic;
+  text-decoration: none;
+  color: #383838;
+  display: block;
+  margin-bottom: 10px;
+}
+.mainTrophy a:hover{
+  text-decoration: underline;
+} 

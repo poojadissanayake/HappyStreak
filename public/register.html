@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="Team HappyStreak">
+
+        <!--Title of the page-->
+        <title>HappyStreak: Turn Streaks into Success</title>
+
+        <!--link to css-->
+        <link rel="stylesheet" href="css/style.css"> 
+        <link rel="stylesheet" href="css/landingpage.css"> 
+        <link rel="stylesheet" href="css/register.css"> 
+    </head>
+
+    <body>
+        <header>
+        <!--navigation bar-->
+            <nav>
+                <!--search bar-->
+                <input type="text" placeholder="Search" class="search-bar">
+                <!-- Title in the middle -->
+                    <div class="nav-title">
+                        <a href="index.html"><h1>HAPPYSTREAK</h1></a> <!--link back to homepage-->
+                    </div>
+                    <!-- Links on the right -->
+                     <div class="nav-right">
+                        <ul class ="nav-links">
+                            <li><a href="#">Dashboard</a></li> <!--pending link-->
+                            <li><a href="#">Goals</a></li> <!--pending link-->
+                            <li><a href="./challenges.html">Challenges</a></li> <!--pending link-->
+                        </ul>
+                    </div>
+                    <!--Avatar of User-->
+                    <div class ="profile-icon">
+                        <a href="userprofile.html">
+                            <img src="images/avatars/avatarskateboard.png" alt="avatar"><!--link to profile page-->
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!--main page-->
+        <main>
+            <div class="content">
+                <div class="card">
+                    <h2>Register</h2>
+                    <form action="register.html" method="post">
+                        <label for="name">Enter Name:</label>
+                        <input type="text" name="name" placeholder="Full Name" required>
+                        <label for="dob">Enter Date of Birth:</label>
+                        <input type="date" name="dob" placeholder="Date of Birth" required>
+                        <label for="email">Enter Email:</label>
+                        <input type="email" name="email" placeholder="Email" required>
+                        <label for="password">Enter Password:</label>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <button type="submit">Register</button>
+                        <div class="login-link">
+                            <p>or <a href="login.html">Login</a></p>
+                        
+                    </form>
+                </div>
+                </div>
+            </div>
+        </main>
+
+        <!--footer-->
+        <footer>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <p class="m-0"> Copyrighted &copy; 2024 HappyStreak. All Rights Reserved. </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </body>
+</html>
