@@ -121,12 +121,72 @@ button.btn-custom:hover {
     color: var(--text-primary-color);
 }
 
+.login-body {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--text-primary-color);
+    
+   
+}
+
+.register-body {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--text-primary-color);
+    
+   
+}
+
+.forgot-body {
+    background-image: url('/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--text-primary-color);
+    
+   
+}
+
+
 .contact-card {
     max-width: 600px;
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
 }
+
+.login-card {
+    margin-top: 50px;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+.register-card {
+    
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+.forgot-card {
+    margin-top: 30px;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    padding-top: 10px;
+}
+
+
 
 .card-body {
     padding: 2rem;
