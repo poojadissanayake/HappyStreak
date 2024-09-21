@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
-
-// Import challengeRoute
-const challengeRoute = require('./challengesRoute');
-const userChallengeRoute = require('./userChallengeRoute');
-
+const userController = require('../controllers/userController');
 // Route for rendering the landing page using EJS
 router.get('/', (req, res) => {
     res.render('index'); // render 'index.ejs' in 'views' folder
