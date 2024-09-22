@@ -1,144 +1,45 @@
-/* Overall style */
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
   color: #333;
-}
-
-main {
   background-color: #fdf7c3;
-  min-height: 100vh;
-  padding: 40px 0;
 }
 
-/* Trending challenge board */
-.trendChlBoard {
-  text-align: center;
-  padding-top: 40px;
-  margin-bottom: 40px;
-}
-
-.trendChlBoard img {
-  margin: auto;
-}
-
-.trendChlBoard p {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #444;
-}
-
-.trendChlBox {
+.challenge-card {
   background-color: white;
-  width: 90%;
-  max-width: 400px;
-  margin: auto;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.trendChlBox img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.trendChlBox button {
-  background-color: #91ddcf;
-  color: black;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.trendChlBox button:hover {
-  background-color: #45a049;
-}
-
-/* Challenge baord */
-.dfChallengesboard {
-  width: 90%;
-  max-width: 1000px;
-  margin: auto;
-}
-
-.suggestion {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.suggestion p {
-  font-size: 20px;
-  font-weight: bold;
-  color: #444;
-}
-
-.dfChallenges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.dfChallenges > div {
-  background-color: #e8c5e5;
-  width: calc(20% - 20px);
-  min-width: 150px;
-  height: 170px;
-  padding: 20px;
-  border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: relative;
-  transition: transform 0.3s, box-shadow 0.3s;
-  font-weight: bold;
+  margin-bottom: 20px;
+  transition: transform 0.3s;
 }
 
-.dfChallenges > div:hover {
+.challenge-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.dfChallenges img {
-  width: 70px;
-  height: 70px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-.add-challenge-btn {
+.btn-add {
+  background-color: #e8c5e5;
+  color: white;
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 30px;
-  height: 30px;
-  background-color: white;
-  color: #e8c5e5;
   border: none;
   border-radius: 50%;
+  width: 30px;
+  height: 30px;
   font-size: 20px;
-  font-weight: bold;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
-.dfChallenges > div > p:last-child {
-  padding-left: 10px;
-  font-size: smaller;
-  color: #444;
+.btn-add:hover {
+  background-color: #91ddcf;
+  color: white;
 }
 
-.add-challenge-btn:hover {
-  background-color: #f0f0f0;
-  transform: scale(1.1);
+h2 {
+  margin-bottom: 20px;
 }
