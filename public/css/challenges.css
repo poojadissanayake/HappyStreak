@@ -12,10 +12,35 @@ body {
   position: relative;
   margin-bottom: 20px;
   transition: transform 0.3s;
+  height: 100%;
+  /* Ensure all cards take up the same height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .challenge-card:hover {
   transform: translateY(-5px);
+}
+
+.challenge-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.challenge-card .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.challenge-card .card-text {
+  flex-grow: 1;
+  /* Ensures the description expands while maintaining card height */
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
 }
 
 .btn-add {
@@ -44,14 +69,21 @@ h2 {
   margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .dfChallenges > div {
-    width: calc(33.33% - 20px);
-  }
+.btn-default,
+.custom-btn {
+  background-color: #B1AFFF;
+  color: #242424;
+  border: none;
+  transition: background-color 0.3s;
 }
 
-@media (max-width: 480px) {
-  .dfChallenges > div {
-    width: calc(50% - 20px);
-  }
+.custom-btn:hover,
+.btn-default:hover {
+  background-color: #9B8FD4;
+}
+
+.custom-btn.active,
+.btn-default.active {
+  background-color: #9B8FD4;
+  color: #242424;
 }
