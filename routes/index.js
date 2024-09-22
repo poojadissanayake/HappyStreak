@@ -36,4 +36,9 @@ router.get('/profile', (req, res) => {
     res.render('userprofile');
 });
 
+// Challenges route
+router.get('/challenges', (req, res) => {
+    res.render('challenges');
+});
+
 module.exports = router;
