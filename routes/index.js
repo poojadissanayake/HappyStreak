@@ -36,7 +36,7 @@ router.get('/forgotpassword', (req, res) => {
 
 // Profile route
 router.get('/profile', (req, res) => {
-    res.render('userprofile');
+    res.render('profile');
 });
 
 // Use challengeRoute for the '/challenges' path
