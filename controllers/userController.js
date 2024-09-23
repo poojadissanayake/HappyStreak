@@ -19,6 +19,10 @@ async function loginUser(req, res) {
         return res.json({
           statusCode: 201,
           message: "Login Successful",
+          data: {
+            name: user.name,
+            id: user._id,
+          },
         });
         // return res.redirect("/profile");
         // return res.render("login", { success: "Login successful!" }); // Pass success message
