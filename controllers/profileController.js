@@ -1,27 +1,20 @@
 const profileModel = require('../models/profileModel');
-const challengesModel = require('../models/challengeModel');
+const { ObjectId } = require('mongodb'); // Import ObjectId
 
-// Retrieve user profile and challenges
-exports.getProfile = async (req, res) => {
+exports.getUserProfile = async (req, res) => {
+    const userId = req.params.userId; // This should be the user ID
     try {
-        const userId = req.user.id; 
-        const profile = await profileModel.findUserById(userId);
-        const challenges = await challengesModel.getUserChallenges(userId); // Fetch user's challenges
-        res.status(200).json({ profile, challenges }); // Send both profile and challenges
+        // Fetch user details using ObjectId
+        const user = await profileModel.findById(new ObjectId(userId)); // Use new ObjectId()
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Render profile.ejs and pass user data
+        res.render('profile', { user });
     } catch (error) {
         console.error("Error fetching user profile:", error);
-        res.status(500).json({ message: "Internal server error" });
-    }
-};
-
-// Retrieve user's challenges
-exports.getUserChallenges = async (req, res) => {
-    try {
-        const userId = req.user.id;
-        const { count, challenges } = await profileModel.getUserChallenges(userId);
-        res.status(200).json({ count, challenges }); // Send both count and challenge details
-    } catch (error) {
-        console.error("Error fetching challenges:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({ message: 'Internal server error' });
     }
 };

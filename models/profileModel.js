@@ -1,17 +1,9 @@
 const { getDB } = require('../dbConnection');
+const { ObjectId } = require('mongodb'); // Import ObjectId
 
-// Find user by their ID
-exports.findUserById = async (userId) => {
+// Fetch a user by their ID from the users collection
+exports.findById = async (userId) => {
     const db = getDB();
-    return await db.collection('users').findOne({ _id: userId });
-};
-
-// Retrieve user's challenges and count them
-exports.getUserChallenges = async (userId) => {
-    const db = getDB();
-    const challenges = await db.collection('challenges').find({ userId }).toArray();
-    return {
-        count: challenges.length, // Count of challenges
-        challenges // Return the challenges array as well
-    };
+    const collection = db.collection('users');
+    return await collection.findOne({ _id: new ObjectId(userId) }); // Use new ObjectId()
 };

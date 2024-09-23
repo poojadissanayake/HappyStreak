@@ -3,12 +3,7 @@ const profileController = require('../controllers/profileController');
 
 const router = express.Router();
 
-// Route for rendering the user profile page
-router.get('/', (req, res) => {
-    res.render('userprofile');
-});
-
-// API route for fetching profile data along with challenges
-router.get('/api/profile', profileController.getUserProfile);
+// Route for retrieving user profile by user ID
+router.get('/profile/:userId', profileController.getUserProfile);
 
 module.exports = router;

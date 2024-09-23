@@ -26,7 +26,7 @@
                             <img src="/images/avatars/avatarskateboard.png" alt="Profile Avatar" class="img-fluid rounded-circle mb-3"> <!--profile avatar to be dynamically updated as part of next step-->
                             <div class="edit-avatar">&#9998;</div>
                         </div>
-                        <h2 id="name"></h2> <!-- user name to be dynamically updated-->
+                        <h2 id="name"><%= user.name %></h2> <!-- user's name to be dynamically updated-->
                         <p><i class="fa fa-map-marker-alt" style="font-size:24px"></i> Melbourne</p> <!--location to be dynamically updated as part of next step-->
                     </div>
         
@@ -60,14 +60,16 @@
         
                         <div class="row">
                             <!-- Display Challenges Details Section -->
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <h3>Challenge Status</h3>
-                                <div class="challenges-container" id="challenges-list"> <!-- challenges to be dynamically updating progress bars -->
+                                    <div class="challenges-container" id="challenges-list">
+                                    <!-- Populate challenge details dynamically here -->
+                                    <p>No challenges - join new challenges now!</p> 
                                 </div>
                             </div>
         
                             <!-- Trophy Case Section -->
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <h3>Trophy Case</h3>
                                 <div class="row" id="trophy-case"> <!--ID to be dynamically updated as part of next step- -->
                                     <!-- Trophy Card 1 -->
