@@ -36,4 +36,9 @@ $(document).ready(function () {
   $("#loginForm").click(() => {
     loginForm();
   });
+
+  // redirect the user to the profile page if the token is present
+  if (window.localStorage.getItem("token")) {
+    window.location.href = "/profile";
+  }
 });
