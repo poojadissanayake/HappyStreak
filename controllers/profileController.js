@@ -1,8 +1,8 @@
-const profileModel = require('../models/profileModel'); // Ensure this path is correct
+const profileModel = require('../models/profileModel');
 const { ObjectId } = require('mongodb'); // Import ObjectId
 
 exports.getUserProfile = async (req, res) => {
-    const userId = req.params.userId; // This should be the user ID
+    const userId = req.params.userId; 
     try {
         // Fetch user details using ObjectId
         const user = await profileModel.findById(new ObjectId(userId)); // Convert userId to ObjectId
@@ -13,6 +13,9 @@ exports.getUserProfile = async (req, res) => {
 
         // Fetch user's challenges
         const userChallenges = await profileModel.getUserChallenges(userId);
+
+        // Count the number of challenges belonging to the user
+        const challengesCount = userChallenges.length;
         
         // Fetch challenge details for each user challenge
         const challenges = await Promise.all(userChallenges.map(async (userChallenge) => {
@@ -24,18 +27,20 @@ exports.getUserProfile = async (req, res) => {
             }
 
             return {
+                id: userChallenge.challengeId,
                 title: challenge.title,
                 category: challenge.category,
-                steps_progress: userChallenge.progress, // Ensure this field exists
-                total_steps: userChallenge.steps.length // Assuming steps is an array
+                steps_progress: userChallenge.progress, 
+                total_steps: userChallenge.steps.length,
+                steps: challenge.steps
             };
         }));
 
-        // Filter out any null challenges (if any)
+        // Filter out any null challenges
         const validChallenges = challenges.filter(challenge => challenge !== null);
 
         // Render profile.ejs and pass user and challenges data
-        res.render('profile', { user, challenges: validChallenges });
+        res.render('profile', { user, challenges: validChallenges, challengesCount });
     } catch (error) {
         console.error("Error fetching user profile:", error);
         res.status(500).json({ message: 'Internal server error' });
