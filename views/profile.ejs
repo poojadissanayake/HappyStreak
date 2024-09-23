@@ -36,7 +36,7 @@
                             <!-- About Section -->
                             <div class="about col-md-5">
                                 <h3>About</h3>
-                                <p id="user-description"></p> <!-- description about the user-->
+                                <p>Welcome <%= user.name %>, time to update your profile to tell us more about yourself! You can share with us anything and everything under the sun, but most importantly time to start some challenges &#x1F600; </p> <!-- Welcome Message to prompt user to edit profile as part of next step-->
                             </div>
         
                             <!-- Total Current Challenges Section -->
@@ -44,7 +44,6 @@
                                 <h3>Total</h3>
                                 <p class="display-4" id="total-challenges">0</p> <!--total challenges to be dynamically updated-->
                                 <p>Challenges To Go</p>
-                                <p id="no-challenges-message" style="display:none;">No challenge joined - join one today!</p> <!--display a default message if user has not joined any challenges-->
                             </div>
         
                             <!-- Join New Challenges Section -->
@@ -62,10 +61,23 @@
                             <!-- Display Challenges Details Section -->
                             <div class="col-md-8">
                                 <h3>Challenge Status</h3>
-                                    <div class="challenges-container" id="challenges-list">
-                                    <!-- Populate challenge details dynamically here -->
-                                    <p>No challenges - join new challenges now!</p> 
-                                </div>
+                                <% if (challenges.length > 0) { %>
+                                    <div class="row">
+                                        <% challenges.forEach(challenge => { %>
+                                            <div class="col-md-6 mb-4">
+                                                <div class="card challenge-card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><%= challenge.title %></h5>
+                                                        <p class="card-text">Category: <%= challenge.category %></p>
+                                                        <p class="card-text">Progress: <%= challenge.steps_progress %> / <%= challenge.total_steps %></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% }); %>
+                                    </div>
+                                <% } else { %>
+                                    <p>No challenges yet - start one today!</p>
+                                <% } %>
                             </div>
         
                             <!-- Trophy Case Section -->
