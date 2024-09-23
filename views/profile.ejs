@@ -69,7 +69,14 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title"><%= challenge.title %></h5>
                                                         <p class="card-text">Category: <%= challenge.category %></p>
-                                                        <p class="card-text">Progress: <%= challenge.steps_progress %> / <%= challenge.total_steps %></p>
+                                                        <!-- Calculate progress percentage -->
+                                                        <% const progressPercentage = (challenge.total_steps > 0) ? (challenge.steps_progress / challenge.total_steps) * 100 : 0; %>
+                                                        <!-- Progress Bar -->
+                                                        <div class="progress">
+                                                            <div class="progress-bar" role="progressbar" style="width: <%= challenge.steps_progress / challenge.total_steps * 100 %>%;" aria-valuenow="<%= challenge.steps_progress %>" aria-valuemin="0" aria-valuemax="<%= challenge.total_steps %>">
+                                                                <%= challenge.steps_progress %> / <%= challenge.total_steps %>                                                    
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

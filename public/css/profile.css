@@ -31,7 +31,7 @@
   transform: rotate(90deg);
 }
 
-/* top section - about, challenges, newchallenges */
+/* top section - about, totalchallenges, newchallenges */
 .profile-right, .about, .challenges, .newchallenges {
   margin-right: 20px;
 }
@@ -64,27 +64,6 @@ h3 {
   color: black;
 }
 
-/* challenges */
-.challenges {
-  background-color: #e8c5e5;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  height: 230px;
-}
-
-.challenges-bar {
-  color: #fff;
-  text-align: center; 
-  border-radius: 5px; 
-}
-
-.challenges-label {
-  font-size: 14px;
-  text-align: center; 
-  margin-bottom: 1px;
-}
-
 /*new challenges*/
 .newchallenges {
   background-color: #e8c5e5; 
@@ -110,6 +89,21 @@ h3 {
   align-items: center;
   justify-content: center;
   height: 100%; 
+}
+
+/* challenges */
+.challenges {
+  background-color: #e8c5e5;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 230px;
+}
+
+.challenges-label {
+  font-size: 14px;
+  text-align: center; 
+  margin-bottom: 1px;
 }
 
 /* new challenges button */
@@ -140,6 +134,16 @@ h3 {
   background-color: #91ddcf; 
 }
 
+/* challenge progress*/
+.challenge-card {
+  background-color: #fdf7c3 !important; 
+  color: black; 
+}
+
+.progress-bar {
+  background-color: #91ddcf !important; 
+}
+
 /* trophy case */
 .trophy-card .card-body .card-title {
   padding: 5px 0;
@@ -148,7 +152,7 @@ h3 {
 
 .trophy-card {
   width: 133px;
-  height: 155px; 
+  height: 145px; 
   background-color: #fdf7c3; 
   border-radius: 10px; 
   display: flex;

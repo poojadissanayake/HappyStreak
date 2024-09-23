@@ -11,37 +11,28 @@ exports.getUserProfile = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        console.log("Fetched User:", user); // Log fetched user
-
         // Fetch user's challenges
-        console.log("Fetching challenges for user ID:", userId);
         const userChallenges = await profileModel.getUserChallenges(userId);
         
-        console.log("Fetched User Challenges:", userChallenges); // Log fetched user challenges
-
         // Fetch challenge details for each user challenge
         const challenges = await Promise.all(userChallenges.map(async (userChallenge) => {
-            console.log("Fetching challenge for ID:", userChallenge.challenge_id); // Log the challenge ID
-            
-            const challenge = await profileModel.getChallengeById(new ObjectId(userChallenge.challenge_id)); // Convert challenge_id to ObjectId
+                        const challenge = await profileModel.getChallengeById(new ObjectId(userChallenge.challengeId)); // Convert challengeId to ObjectId
             
             if (!challenge) {
-                console.warn("Challenge not found for ID:", userChallenge.challenge_id);
+                console.warn("Challenge not found for ID:", userChallenge.challengeId);
                 return null; // Return null if challenge is not found
             }
 
             return {
                 title: challenge.title,
                 category: challenge.category,
-                steps_progress: userChallenge.steps_progress,
-                total_steps: userChallenge.total_steps
+                steps_progress: userChallenge.progress, // Ensure this field exists
+                total_steps: userChallenge.steps.length // Assuming steps is an array
             };
         }));
 
         // Filter out any null challenges (if any)
         const validChallenges = challenges.filter(challenge => challenge !== null);
-
-        console.log("Valid Challenges:", validChallenges); // Log valid challenges
 
         // Render profile.ejs and pass user and challenges data
         res.render('profile', { user, challenges: validChallenges });

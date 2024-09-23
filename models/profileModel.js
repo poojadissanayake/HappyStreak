@@ -12,12 +12,13 @@ exports.findById = async (userId) => {
 exports.getUserChallenges = async (userId) => {
     const db = getDB();
     const collection = db.collection('user_challenges');
-    return await collection.find({ user_id: new ObjectId(userId) }).toArray(); // Convert userId to ObjectId
+    const challenges = await collection.find({ userId: new ObjectId(userId) }).toArray(); // Change user_id to userId
+    return challenges;
 };
 
 // Fetch challenge details by challenge ID
 exports.getChallengeById = async (challengeId) => {
     const db = getDB();
-    const collection = db.collection('challenges'); //
+    const collection = db.collection('challenges');
     return await collection.findOne({ _id: new ObjectId(challengeId) }); // Use new ObjectId()
 };
