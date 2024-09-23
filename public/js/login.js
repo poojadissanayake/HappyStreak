@@ -32,6 +32,7 @@ function postLogin(values) {
 
         // once the login is successful, redirect to profile page
         window.location.href = "/profile";
+
         // sendEmail(values);
       } else {
         // show alert if login is unsuccessful
