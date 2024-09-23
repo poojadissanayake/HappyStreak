@@ -1,3 +1,5 @@
+const socket = io();
+
 const loginForm = () => {
   let formData = {};
   // get the values from the form
@@ -5,6 +7,16 @@ const loginForm = () => {
   formData.password = $("#password").val();
   // call the postLogin function with the form data
   postLogin(formData);
+};
+
+const sendEmail = (userData) => {
+  const emailData = {
+    to: userData.email,
+    subject: "Registration Successful",
+    message:
+      "Thank you for registering to HappyStreak. We hope you enjoy our services.",
+  };
+  socket.emit("sendEmail", emailData);
 };
 
 function postLogin(values) {
@@ -19,6 +31,7 @@ function postLogin(values) {
         window.localStorage.setItem("token", result.data.id);
         // once the login is successful, redirect to profile page
         window.location.href = "/profile";
+        sendEmail(values);
       } else {
         // show alert if login is unsuccessful
         alert("Invalid credentials");
