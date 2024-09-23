@@ -29,7 +29,6 @@ function postLogin(values) {
       if (result.statusCode === 201) {
         // set token in local storage
         window.localStorage.setItem("token", result.data.id);
-
         // once the login is successful, redirect to profile page
         window.location.href = "/profile";
 
