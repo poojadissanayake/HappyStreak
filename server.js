@@ -1,17 +1,12 @@
 const express = require("express");
-
 const path = require("path");
 const nodemailer = require("nodemailer");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const http = require("http");
 const { Server } = require("socket.io");
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
 const app = express();
 const port = 3000;
-const { connectDB } = require("./dbConnection"); // Import the connection function
-const routes = require("./routes/index");
 const { connectDB } = require("./dbConnection"); // Import the connection function
 const routes = require("./routes/index");
 
