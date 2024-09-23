@@ -138,10 +138,21 @@ h3 {
 .challenge-card {
   background-color: #fdf7c3 !important; 
   color: black; 
+  border: none; 
 }
 
 .progress-bar {
   background-color: #91ddcf !important; 
+}
+
+.custom-button {
+  background-color: #91ddcf !important;
+  color: black; 
+  border: none; 
+}
+
+.custom-button:hover {
+  background-color: #7ec4b7 !important;
 }
 
 /* trophy case */
@@ -152,7 +163,7 @@ h3 {
 
 .trophy-card {
   width: 133px;
-  height: 145px; 
+  height: 180px; 
   background-color: #fdf7c3; 
   border-radius: 10px; 
   display: flex;
@@ -164,5 +175,5 @@ h3 {
 
 .trophy-card img {
   width: 100px; 
-  height: 100px; 
+  height: 130px; 
 }
