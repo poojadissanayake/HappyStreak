@@ -57,7 +57,7 @@ async function renderRegister(req, res) {
 async function registerUser(req, res) {
   console.log(req.body);
   try {
-    const { name, email, password, confirmPassword } = req.body;
+    const { name, email, dob, password, confirmPassword } = req.body;
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -73,8 +73,11 @@ async function registerUser(req, res) {
     // Hash the password before storing it in the database
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Convert dob to Date object
+    const dobAsDate = new Date(dob); // Convert the string from the form to a Date object
+
     // Create new user in the database
-    await userModel.createUser({ name, email, password: hashedPassword });
+    await userModel.createUser({ name, email,  dob: dobAsDate, password: hashedPassword });
     res.redirect("/login");
   } catch (error) {
     console.error("Registration error:", error);
