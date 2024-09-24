@@ -3,8 +3,6 @@ const path = require("path");
 const nodemailer = require("nodemailer");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const http = require("http");
-const { Server } = require("socket.io");
 const app = express();
 const port = 3000;
 const { connectDB } = require("./dbConnection"); // Import the connection function
@@ -54,19 +52,14 @@ io.on("connection", (socket) => {
 // Connect to the database when the server starts
 async function startServer() {
   await connectDB(); // Wait for the database connection
-  // Built-in middleware to parse JSON
-  app.use(express.json());
 
   // Middleware to parse JSON and URL-encoded data
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-
   // Set the view engine to EJS
   app.set("view engine", "ejs");
-
   // Serve static files from the 'public' directory
   app.use(express.static(path.join(__dirname, "public")));
-
   // Set up session middleware
   const sessionMiddleware = session({
     secret: "1qaz2wsx@A",
@@ -86,9 +79,6 @@ async function startServer() {
   io.use((socket, next) => {
     sessionMiddleware(socket.request, socket.request.res || {}, next);
   });
-
-  // Use routes
-  app.use("/", routes);
 
   // Socket.IO connection handler
   io.on("connection", (socket) => {
@@ -116,17 +106,9 @@ async function startServer() {
   });
   // Built-in middleware to parse URL-encoded data
   app.use(express.urlencoded({ extended: true }));
-  // Built-in middleware to parse URL-encoded data
-  app.use(express.urlencoded({ extended: true }));
-
-  // Set the view engine to EJS
-  app.set("view engine", "ejs");
 
   // Use routes
   app.use("/", routes);
-
-  // Serve static files from the 'public' directory
-  app.use(express.static(path.join(__dirname, "public")));
 
   // Start the server
   server.listen(port, () => {
