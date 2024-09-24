@@ -155,6 +155,16 @@ h3 {
   background-color: #7ec4b7 !important;
 }
 
+.custom-button-2 {
+  background-color: #e8c5e5 !important;
+  color: black; 
+  border: none; 
+}
+
+.custom-button-2:hover {
+  background-color: #e19edc !important;
+}
+
 /* trophy case */
 .trophy-card .card-body .card-title {
   padding: 5px 0;

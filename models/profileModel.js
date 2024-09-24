@@ -22,3 +22,10 @@ exports.getChallengeById = async (challengeId) => {
     const collection = db.collection('challenges');
     return await collection.findOne({ _id: new ObjectId(challengeId) }); // Use new ObjectId()
 };
+
+// Delete user's specific chall
+exports.deleteUserChallenge = async (userId, challengeId) => {
+    const db = getDB();
+    const collection = db.collection('user_challenges');
+    await collection.deleteOne({ userId: new ObjectId(userId), challengeId: new ObjectId(challengeId) }); // Use new ObjectId()
+};

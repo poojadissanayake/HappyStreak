@@ -12,6 +12,9 @@ connectDB();
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 
+// Parse JSON bodies
+app.use(express.json());
+
 // Use routes
 app.use('/', routes);
 

@@ -82,7 +82,7 @@
                             
                                                         <!-- Button to Open Progress Checklist -->
                                                         <button type='button' class='btn custom-button mt-2' data-bs-toggle='modal' data-bs-target='#stepsModal<%= challenge.id %>'>Track Progress</button>
-                                                    </div>
+                                                        <button type='button' class='btn custom-button-2 mt-2' onclick="deleteChallenge('<%= user._id %>', '<%= challenge.id %>')">Delete Challenge</button>                                                    </div>
                                                 </div>
                             
                                                 <!-- Progress Checklist -->
@@ -168,20 +168,41 @@
             <%- include('footer') %>
     </div>
 
-    <!-- JavaScript function to save progress -->
+    <!-- JavaScript function for buttons - save progress and delete challenge -->
     <script>
-        function saveProgress(challengeId) {
-            const checkedSteps = [];
-            const checkboxes = document.querySelectorAll(`#stepsForm${challengeId} .form-check-input:checked`);
-            
-            checkboxes.forEach(checkbox => {
-                checkedSteps.push(checkbox.value);
-            });
     
-            console.log('Checked Steps for Challenge ID', challengeId, ':', checkedSteps);
-            
-            // Handle saving of checked steps 
-        }
+    // save progress of challenge 
+    function saveProgress(challengeId) {
+        const checkedSteps = [];
+        const checkboxes = document.querySelectorAll(`#stepsForm${challengeId} .form-check-input:checked`);
+        
+        checkboxes.forEach(checkbox => {
+            checkedSteps.push(checkbox.value);
+        });
+
+        console.log('Checked Steps for Challenge ID', challengeId, ':', checkedSteps);
+    }
+
+    // delete user's specific challenge 
+    function deleteChallenge(userId, challengeId) {
+        console.log('Deleting Challenge:', { userId, challengeId }); // Log the IDs
+        fetch(`/profile/${userId}/delete-challenge/${challengeId}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Challenge deleted successfully!');
+                location.reload();
+            } else {
+                alert('Failed to delete challenge.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the challenge.');
+        });
+    }
     </script>
 
     <!-- Bootstrap 5 JavaScript -->

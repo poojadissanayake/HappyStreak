@@ -1,6 +1,7 @@
 const profileModel = require('../models/profileModel');
 const { ObjectId } = require('mongodb'); // Import ObjectId
 
+// Getting user profile details 
 exports.getUserProfile = async (req, res) => {
     const userId = req.params.userId; 
     try {
@@ -44,5 +45,19 @@ exports.getUserProfile = async (req, res) => {
     } catch (error) {
         console.error("Error fetching user profile:", error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+// Delete challenge 
+exports.deleteChallenge = async (req, res) => {
+    const { userId, challengeId } = req.params;
+
+    try {
+        await profileModel.deleteUserChallenge(userId, challengeId);
+        
+        res.json({ success: true, message: 'Challenge deleted successfully' });
+    } catch (error) {
+        console.error("Error deleting challenge:", error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
