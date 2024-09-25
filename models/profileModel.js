@@ -23,9 +23,22 @@ exports.getChallengeById = async (challengeId) => {
     return await collection.findOne({ _id: new ObjectId(challengeId) }); // Use new ObjectId()
 };
 
-// Delete user's specific chall
+// Delete user's specific challenge
 exports.deleteUserChallenge = async (userId, challengeId) => {
     const db = getDB();
     const collection = db.collection('user_challenges');
     await collection.deleteOne({ userId: new ObjectId(userId), challengeId: new ObjectId(challengeId) }); // Use new ObjectId()
+};
+
+// Update progress of user
+exports.updateUserProgress = async (userId, challengeId, progress) => {
+    const db = getDB();
+    const collection = db.collection('user_challenges');
+
+    const result = await collection.updateOne(
+        { userId: new ObjectId(userId), challengeId: new ObjectId(challengeId) }, // Use new ObjectId()
+        { $set: { progress: progress } }
+    );
+
+    return result.modifiedCount > 0;
 };

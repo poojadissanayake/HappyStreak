@@ -9,4 +9,7 @@ router.get('/profile/:userId', profileController.getUserProfile);
 // Route for deleting specific challenge
 router.delete('/profile/:userId/delete-challenge/:challengeId', profileController.deleteChallenge);
 
+// Route for updating progress
+router.post('/profile/:userId/update-progress/:challengeId', profileController.updateChallengeProgress);
+
 module.exports = router;

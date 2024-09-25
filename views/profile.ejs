@@ -98,7 +98,7 @@
                                                                     <% if (challenge.steps) { %> 
                                                                         <% challenge.steps.forEach((step, index) => { %>
                                                                             <div class="form-check">
-                                                                                <input class="form-check-input" type="checkbox" value="<%= step %>" id="step<%= challenge.id %>-<%= index %>">
+                                                                                <input class="form-check-input" type="checkbox" value="<%= step %>" id="step<%= challenge.id %>-<%= index %>" <%= index < challenge.steps_progress ? 'checked' : '' %>>
                                                                                 <label class="form-check-label" for="step<%= challenge.id %>-<%= index %>">
                                                                                     <%= step %>
                                                                                 </label>
@@ -111,7 +111,7 @@
                                                             </div>
                                                             <div class='modal-footer'>
                                                                 <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                                                <button type='button' class='btn custom-button' onclick="saveProgress('<%= challenge.id %>')">Save Progress</button>
+                                                                <button type='button' class='btn custom-button' onclick="saveProgress('<%= challenge.id %>', '<%= user._id %>')">Save Progress</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -171,17 +171,57 @@
     <!-- JavaScript function for buttons - save progress and delete challenge -->
     <script>
     
-    // save progress of challenge 
-    function saveProgress(challengeId) {
-        const checkedSteps = [];
-        const checkboxes = document.querySelectorAll(`#stepsForm${challengeId} .form-check-input:checked`);
-        
-        checkboxes.forEach(checkbox => {
-            checkedSteps.push(checkbox.value);
-        });
+    function saveProgress(challengeId, userId) {
+    const checkboxes = document.querySelectorAll(`#stepsForm${challengeId} .form-check-input`);
+    let checkedSteps = []; // Declare the array to store checked steps
+    let progress = 0;
 
-        console.log('Checked Steps for Challenge ID', challengeId, ':', checkedSteps);
-    }
+    // Count the number of checked steps to update progress
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            checkedSteps.push(checkbox.value); // Push only checked steps
+        }
+    });
+
+    // Progress will be the number of checked checkboxes
+    progress = checkedSteps.length;
+
+    console.log('Checked Steps for Challenge ID', challengeId, ':', checkedSteps, 'Progress:', progress);
+
+    // Send progress data to the server
+    fetch(`/profile/${userId}/update-progress/${challengeId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ progress })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Progress saved successfully!');
+            location.reload();
+        } else {
+            alert('Failed to save progress.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while saving progress.');
+    });
+}
+
+    // save progress of challenge 
+    //function saveProgress(challengeId) {
+        //const checkedSteps = [];
+        //const checkboxes = document.querySelectorAll(`#stepsForm${challengeId} .form-check-input:checked`);
+        
+        //checkboxes.forEach(checkbox => {
+            //checkedSteps.push(checkbox.value);
+        //});
+
+        //console.log('Checked Steps for Challenge ID', challengeId, ':', checkedSteps);
+    //}
 
     // delete user's specific challenge 
     function deleteChallenge(userId, challengeId) {

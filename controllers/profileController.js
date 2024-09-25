@@ -61,3 +61,22 @@ exports.deleteChallenge = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
+
+// Update the challenge progress for the user
+exports.updateChallengeProgress = async (req, res) => {
+    const { userId, challengeId } = req.params;
+    const { progress } = req.body;
+
+    try {
+        const updated = await profileModel.updateUserProgress(userId, challengeId, progress);
+        
+        if (updated) {
+            res.json({ success: true, message: 'Progress updated successfully' });
+        } else {
+            res.status(404).json({ success: false, message: 'Challenge not found' });
+        }
+    } catch (error) {
+        console.error('Error updating progress:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+};
