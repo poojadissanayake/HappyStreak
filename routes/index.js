@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const app = express();
 
 // Import challengeRoute
 const challengeRoute = require('./challengesRoute');
+const userChallengeRoute = require('./userChallengeRoute');
 
 // Import profileRoute
 const profileRoute = require('./profileRoute');
@@ -42,6 +44,8 @@ router.get('/forgotpassword', (req, res) => {
 router.get('/profile', (req, res) => {
     res.render('profile');
 });
+
+router.use('/userChallenges', userChallengeRoute);
 
 // Use challengeRoute for the '/challenges' path
 router.use('/challenges', challengeRoute);
