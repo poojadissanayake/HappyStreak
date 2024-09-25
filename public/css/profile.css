@@ -1,0 +1,189 @@
+/* profile section */
+.profile-section {
+  padding: 2rem;
+}
+
+.profile-info {
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.profile-avatar {
+  position: relative;
+}
+
+.profile-avatar img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-avatar {
+  position: absolute;
+  bottom: 5px;
+  right: 90px; 
+  background-color: #fdf7c3;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  transform: rotate(90deg);
+}
+
+/* top section - about, totalchallenges, newchallenges */
+.profile-right, .about, .challenges, .newchallenges {
+  margin-right: 20px;
+}
+
+.profile-right {
+  padding: 20px;
+  margin-bottom: 1.5rem;
+}
+
+.profile-right > .row {
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin: 10px 0 5px;
+}
+
+.about {
+  background-color: #fafafa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+  height: 230px;
+}
+
+.display-4 {
+  font-size: 70px !important;
+  font-weight: bold;
+  color: black;
+}
+
+/*new challenges*/
+.newchallenges {
+  background-color: #e8c5e5; 
+  color: black; 
+  border: none; 
+  padding: 20px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  border-radius: 10px; 
+  align-items: center;
+  justify-content: center;
+  height: 230px;
+}
+
+.newchallenges:hover {
+  background-color: #91ddcf; 
+}
+
+.newchallenges-link {
+  position: relative; 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  height: 100%; 
+}
+
+/* challenges */
+.challenges {
+  background-color: #e8c5e5;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 230px;
+}
+
+.challenges-label {
+  font-size: 14px;
+  text-align: center; 
+  margin-bottom: 1px;
+}
+
+/* new challenges button */
+.btn-custom {
+  background-color: #e8c5e5;
+  border: none; 
+  padding: 20px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  border-radius: 10px;
+}
+
+.btn-custom:hover {
+  background-color: #91ddcf; 
+}
+
+/* add sign style*/
+.add-sign {
+  background-color: #e8c5e5;
+  font-size: 60px; 
+  color: black; 
+  cursor: pointer; 
+  margin-top: 8px; 
+  display: block;
+}
+
+.newchallenges:hover .add-sign {
+  background-color: #91ddcf; 
+}
+
+/* challenge progress*/
+.challenge-card {
+  background-color: #fdf7c3 !important; 
+  color: black; 
+  border: none; 
+}
+
+.progress-bar {
+  background-color: #91ddcf !important; 
+}
+
+.custom-button {
+  background-color: #91ddcf !important;
+  color: black; 
+  border: none; 
+}
+
+.custom-button:hover {
+  background-color: #7ec4b7 !important;
+}
+
+.custom-button-2 {
+  background-color: #e8c5e5 !important;
+  color: black; 
+  border: none; 
+}
+
+.custom-button-2:hover {
+  background-color: #e19edc !important;
+}
+
+/* trophy case */
+.trophy-card .card-body .card-title {
+  padding: 5px 0;
+  font-size: 12px; 
+}
+
+.trophy-card {
+  width: 133px;
+  height: 180px; 
+  background-color: #fdf7c3; 
+  border-radius: 10px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.trophy-card img {
+  width: 100px; 
+  height: 130px; 
+}
