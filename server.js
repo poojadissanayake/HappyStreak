@@ -23,6 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 
+// Parse JSON bodies
+app.use(express.json());
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
