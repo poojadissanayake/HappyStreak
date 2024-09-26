@@ -9,6 +9,7 @@ node_modules/
 
 # Ignore package-lock.json
 package-lock.json
+./vscode
 
 # Ignore .DS_Store
 .DS_Store

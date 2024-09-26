@@ -47,9 +47,6 @@
             <div class="row mb-4">
               <% if (challenges.length> 0) { %> <%
               challenges.forEach(challenge=> { %>
-              <!-- Check if challenge matches the selected category -->
-              <% if (selectedCategory==='all' ||
-              selectedCategory===challenge.category) { %>
               <div class="col-md-3 mb-4">
                 <div class="card challenge-card">
                   <div
@@ -65,29 +62,32 @@
                   </div>
                 </div>
               </div>
-              <% } %> <% }); %> <% } else { %>
+              <% }); %> <% } else { %>
               <p>No challenges available.</p>
               <% } %>
             </div>
           </div>
         </div>
-
-<!-- Trending Challenges section -->
-<div class="row mb-5">
-    <div class="col">
-        <h2 class="text-start">Trending Challenges</h2>
-        <div class="trendChlBox">
-            <h5>Other users love these challenges! Give them a go:</h5>
-            
-                <h1>challenge</h1>
-                <p>description</p>
-                <a class="btn btn-join" >Join the challenge</a>
-            
+        <div class="container my-5 trendChlBox">
+          <h2>Most Popular Challenge</h2>
+          <% if (topChallenge) { %>
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title"><%= topChallenge.title %></h3>
+              <p class="card-text"><%= topChallenge.description %></p>
+              <p><strong>Category:</strong> <%= topChallenge.category %></p>
+              <a
+                onclick="addChallenge(JSON.parse('<%= JSON.stringify(topChallenge)%>'))"
+                class="btn btn-join"
+                >Join the Challenge</a
+              >
+            </div>
+          </div>
+          <% } else { %>
+          <p>No challenges available.</p>
+          <% } %>
         </div>
-    </div>
-</div>
-
-
+      </div>
 
       <!-- Include Footer -->
       <%- include('footer') %>
