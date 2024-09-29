@@ -5,6 +5,7 @@ const app = express();
 // Import challengeRoute
 const challengeRoute = require('./challengesRoute');
 const userChallengeRoute = require('./userChallengeRoute');
+const userController = require("../controllers/userController");
 
 // Import profileRoute
 const profileRoute = require('./profileRoute');
