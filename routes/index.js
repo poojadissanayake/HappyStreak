@@ -5,6 +5,7 @@ const app = express();
 // Import challengeRoute
 const challengeRoute = require('./challengesRoute');
 const userChallengeRoute = require('./userChallengeRoute');
+const contactRoute = require('./contactRoute')
 
 // Import profileRoute
 const profileRoute = require('./profileRoute');
@@ -52,5 +53,7 @@ router.use('/challenges', challengeRoute);
 
 // Use profileRoute for the 'profile' path
 router.use('/', profileRoute);
+
+router.use('/contact', contactRoute);
 
 module.exports = router;

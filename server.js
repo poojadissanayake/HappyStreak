@@ -37,7 +37,7 @@ const sessionMiddleware = session({
         mongoUrl: 'mongodb+srv://admin:sQbQ7UpBocNpW85I@cluster0.c1bcmhv.mongodb.net/',
         collectionName: 'sessions',
     }),
-    cookie: { secure: false }  // Set to true if using HTTPS
+    cookie: { secure: false }
 });
 
 app.use(sessionMiddleware);
