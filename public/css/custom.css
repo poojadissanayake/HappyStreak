@@ -1,12 +1,12 @@
 /* color variable definitions */
 :root {
-  --primary-color: #b1afff;
-  --secondary-color: #e8c5e5;
+  --primary-color: #B1AFFF;
+  --secondary-color: #E8C5E5;
   --text-primary-color: #242424;
   --smooth-bg: #ffe6c6;
-  --calm-green: #91ddcf;
-  --some-color: #f7f9f2;
-  --calm-yellow: #fdf7c3;
+  --calm-green: #91DDCF;
+  --some-color: #F7F9F2;
+  --calm-yellow: #FDF7C3;
 }
 
 /* html and body take up the full height of the viewport */
@@ -80,7 +80,7 @@ button.btn-custom:hover {
 }
 
 .features-section {
-  background-image: url("/images/background.jpg");
+  background-image: url('/images/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -107,14 +107,14 @@ button.btn-custom:hover {
 }
 
 .about-body {
-  background-image: url("/images/background.jpg");
+  background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 
 .contact-body {
-  background-image: url("/images/background.jpg");
+  background-image: url('/images/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -122,28 +122,35 @@ button.btn-custom:hover {
 }
 
 .login-body {
-  background-image: url("/images/background.jpg");
+  background-image: url('/images/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: var(--text-primary-color);
+  
+ 
 }
 
 .register-body {
-  background-image: url("/images/background.jpg");
+  background-image: url('/images/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: var(--text-primary-color);
+  
+ 
 }
 
 .forgot-body {
-  background-image: url("/images/background.jpg");
+  background-image: url('/images/background.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: var(--text-primary-color);
+  
+ 
 }
+
 
 .contact-card {
   max-width: 600px;
@@ -162,6 +169,7 @@ button.btn-custom:hover {
 }
 
 .register-card {
+  
   max-width: 600px;
   width: 100%;
   border-radius: 8px;
@@ -177,6 +185,8 @@ button.btn-custom:hover {
   overflow: hidden;
   padding-top: 10px;
 }
+
+
 
 .card-body {
   padding: 2rem;
@@ -200,8 +210,4 @@ button.btn-custom:hover {
 .btn-custom:hover {
   background-color: #57cc99;
   border-color: #57cc99;
-}
-/* added nav profile css */
-.nav-item > .logout {
-  display: none;
 }
