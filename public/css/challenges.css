@@ -76,14 +76,3 @@ h2 {
   border: none;
   transition: background-color 0.3s;
 }
-
-.custom-btn:hover,
-.btn-default:hover {
-  background-color: #9B8FD4;
-}
-
-.custom-btn.active,
-.btn-default.active {
-  background-color: #9B8FD4;
-  color: #242424;
-}

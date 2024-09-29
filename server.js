@@ -1,44 +1,129 @@
-const express = require('express');
-const path = require('path');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const http = require('http');
-const { Server } = require('socket.io');
+const express = require("express");
+const path = require("path");
+const nodemailer = require("nodemailer");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const app = express();
 const port = 3000;
-const { connectDB, getDB } = require('./dbConnection');
-const db = getDB();
-const routes = require('./routes/index');
+const { connectDB } = require("./dbConnection"); // Import the connection function
+const routes = require("./routes/index");
 
-const server = http.createServer(app);
-const io = new Server(server);
+let server = require("http").createServer(app);
+let io = require("socket.io")(server);
+
+// Create a transporter object
+const transporter = nodemailer.createTransport({
+  host: "live.smtp.mailtrap.io",
+  port: 587,
+  secure: false, // use SSL
+  auth: {
+    user: process.env.EMAIL_USER_ID,
+    pass: process.env.EMAIL_USER_PASSWORD,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("Connection established");
+
+  socket.on("sendEmail", (data) => {
+    const mailOptions = {
+      from: "info@happystreak.com.au",
+      to: "edwinmhzn@gmail.com",
+      subject: data.subject,
+      text: data.message,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        socket.emit("emailStatus", "Error sending email");
+      } else {
+        console.log("Email sent: " + info.response);
+        socket.emit("emailStatus", "Email sent successfully");
+      }
+    });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected");
+  });
+});
 
 // Connect to the database when the server starts
-connectDB();
+async function startServer() {
+  await connectDB(); // Wait for the database connection
 
 // Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Set the view engine to EJS
-app.set('view engine', 'ejs');
+  // Middleware to parse JSON and URL-encoded data
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  // Set the view engine to EJS
+  app.set("view engine", "ejs");
+  // Serve static files from the 'public' directory
+  app.use(express.static(path.join(__dirname, "public")));
+  // Set up session middleware
+  const sessionMiddleware = session({
+    secret: "1qaz2wsx@A",
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://admin:sQbQ7UpBocNpW85I@cluster0.c1bcmhv.mongodb.net/",
+      collectionName: "sessions",
+    }),
+    cookie: { secure: false }, // Set to true if using HTTPS
+  });
+
+  app.use(sessionMiddleware);
+
+  // Pass the session middleware to Socket.IO
+  io.use((socket, next) => {
+    sessionMiddleware(socket.request, socket.request.res || {}, next);
+  });
+
+  // Socket.IO connection handler
+  io.on("connection", (socket) => {
+    const session = socket.request.session;
+
+    console.log("user connected");
+
+    if (session.userId) {
+      console.log(`User ID from session: ${session.userId}`);
+    } else {
+      console.log("No user in session");
+    }
+
+    socket.on('createUserSession', (data) => {
+      const userId = data.userId;
+      socket.userId = userId;
+      console.log(`Session created for user: ${userId}`);
+    });
+
+    socket.on("markStep", (data) => {
+      const { challengeId, step } = data;
+      // Handle marking the step in the challenge for this user --> should work on this later
+      console.log(
+        `Marking step ${step} of challenge ${challengeId} for user ${session.userId}`
+      );
+    });
+
+    socket.on("disconnect", () => {
+      console.log("user disconnected");
+    });
+  });
+  
+  // Built-in middleware to parse URL-encoded data
+  app.use(express.urlencoded({ extended: true }));
 
 // Parse JSON bodies
 app.use(express.json());
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set up session middleware
-const sessionMiddleware = session({
-    secret: '1qaz2wsx@A',  
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://admin:sQbQ7UpBocNpW85I@cluster0.c1bcmhv.mongodb.net/',
-        collectionName: 'sessions',
-    }),
-    cookie: { secure: false }  // Set to true if using HTTPS
-});
+
 
 app.use(sessionMiddleware);
 
@@ -72,8 +157,65 @@ io.on('connection', (socket) => {
         console.log('user disconnected');
     });
 });
+  // Middleware to parse JSON and URL-encoded data
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  // Set the view engine to EJS
+  app.set("view engine", "ejs");
+  // Serve static files from the 'public' directory
+  app.use(express.static(path.join(__dirname, "public")));
+  // Set up session middleware
+ 
+  app.use(sessionMiddleware);
 
-// Start the server
-app.listen(port, () => {
+  // Pass the session middleware to Socket.IO
+  io.use((socket, next) => {
+    sessionMiddleware(socket.request, socket.request.res || {}, next);
+  });
+
+  // Socket.IO connection handler
+  io.on("connection", (socket) => {
+    const session = socket.request.session;
+
+    console.log("user connected");
+
+    if (session.userId) {
+      console.log(`User ID from session: ${session.userId}`);
+    } else {
+      console.log("No user in session");
+    }
+
+    socket.on('createUserSession', (data) => {
+      const userId = data.userId;
+      socket.userId = userId;
+      console.log(`Session created for user: ${userId}`);
+    });
+
+    socket.on("markStep", (data) => {
+      const { challengeId, step } = data;
+      // Handle marking the step in the challenge for this user --> should work on this later
+      console.log(
+        `Marking step ${step} of challenge ${challengeId} for user ${session.userId}`
+      );
+    });
+
+    socket.on("disconnect", () => {
+      console.log("user disconnected");
+    });
+  });
+  
+  // Built-in middleware to parse URL-encoded data
+  app.use(express.urlencoded({ extended: true }));
+
+  // Use routes
+  app.use("/", routes);
+
+  // Start the server
+  server.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
+  });
+}
+
+startServer().catch((error) => {
+  console.error("Failed to start the server:", error);
 });
