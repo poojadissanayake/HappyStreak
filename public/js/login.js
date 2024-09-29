@@ -30,8 +30,14 @@ function postLogin(values) {
         // set token in local storage
         window.localStorage.setItem("token", result.data.id);
 
+        // when login is successful, emit an event to create a user session
+        const userId = result.data.id; 
+        socket.emit("createUserSession", { userId });
+       
+
         // once the login is successful, redirect to profile page
         window.location.href = "/profile";
+        console.log(userId);
         // sendEmail(values);
       } else {
         // show alert if login is unsuccessful

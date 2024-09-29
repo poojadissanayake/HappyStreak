@@ -92,6 +92,12 @@ async function startServer() {
       console.log("No user in session");
     }
 
+    socket.on('createUserSession', (data) => {
+      const userId = data.userId;
+      socket.userId = userId;
+      console.log(`Session created for user: ${userId}`);
+    });
+
     socket.on("markStep", (data) => {
       const { challengeId, step } = data;
       // Handle marking the step in the challenge for this user --> should work on this later
@@ -104,6 +110,7 @@ async function startServer() {
       console.log("user disconnected");
     });
   });
+  
   // Built-in middleware to parse URL-encoded data
   app.use(express.urlencoded({ extended: true }));
 
