@@ -48,7 +48,7 @@ exports.getUserProfile = async (req, res) => {
         const challengesToGoCount = challengesCount - completedChallengesCount;
 
         // Render profile.ejs and pass user, challenges and completed challenges data
-        res.render('profile', { user, challenges: validChallenges, challengesCount, completedChallenges, completedChallengesCount, challengesToGoCount });
+        res.render('profile', { user, userId, challenges: validChallenges, challengesCount, completedChallenges, completedChallengesCount, challengesToGoCount });
     } catch (error) {
         console.error("Error fetching user profile:", error);
         res.status(500).json({ message: 'Internal server error' });
