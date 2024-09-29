@@ -21,11 +21,10 @@
 
               <!-- Error or success message handling -->
 
-              <form
-                action="/register"
-                method="POST"
-                onsubmit="return validateForm()"
-              >
+              <!-- action="/register"
+              method="POST"
+              onsubmit="return validateForm()" -->
+              <form id="registerForm">
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
                   <input
@@ -33,7 +32,7 @@
                     class="form-control"
                     id="name"
                     name="name"
-                    required
+                    required="password requried"
                   />
                 </div>
                 <div class="mb-3">

@@ -26,6 +26,7 @@ router.post("/login", userController.loginUser);
 router.get("/register", (req, res) => {
   res.render("register", { error: null }); // Pass null to avoid reference errors
 });
+
 router.post("/register", userController.registerUser);
 
 // Forgot password routes

@@ -6,7 +6,6 @@ async function renderLogin(req, res) {
 }
 
 async function loginUser(req, res) {
-  console.log(req.body);
   try {
     const { email, password } = req.body;
     const user = await userModel.findUserByEmail(email);
@@ -61,13 +60,21 @@ async function registerUser(req, res) {
 
     // Check if passwords match
     if (password !== confirmPassword) {
-      return res.render("register", { error: "Passwords do not match" });
+      return res.json({
+        statusCode: 422,
+        message: "Passwords do not match",
+      });
+      // return res.render("register", { error: "Passwords do not match" });
     }
 
     // Check if email is already in use
     const existingUser = await userModel.findUserByEmail(email);
     if (existingUser) {
-      return res.render("register", { error: "Email already in use" });
+      return res.json({
+        statusCode: 422,
+        message: "Email already in use",
+      });
+      // return res.render("register", { error: "Email already in use" });
     }
 
     // Hash the password before storing it in the database
@@ -77,11 +84,24 @@ async function registerUser(req, res) {
     const dobAsDate = new Date(dob); // Convert the string from the form to a Date object
 
     // Create new user in the database
-    await userModel.createUser({ name, email,  dob: dobAsDate, password: hashedPassword });
-    res.redirect("/login");
+    await userModel.createUser({
+      name,
+      email,
+      dob: dobAsDate,
+      password: hashedPassword,
+    });
+    return res.json({
+      statusCode: 201,
+      message: "Registered Successfully!",
+    });
+    // res.redirect("/login");
   } catch (error) {
     console.error("Registration error:", error);
-    res.render("register", { error: "Something went wrong" });
+    return res.json({
+      statusCode: 401,
+      message: error,
+    });
+    // res.render("register", { error: "Something went wrong" });
   }
 }
 
