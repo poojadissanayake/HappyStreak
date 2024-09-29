@@ -65,13 +65,33 @@ body {
   color: white;
 }
 
+.btn-join {
+  background-color: #e8c5e5;
+  color: white;
+  border-radius: 20px;
+  width: 200px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: auto;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-join:hover {
+  background-color: #91ddcf;
+  color: white;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 h2 {
   margin-bottom: 20px;
 }
 
 .btn-default,
 .custom-btn {
-  background-color: #B1AFFF;
+  background-color: #b1afff;
   color: #242424;
   border: none;
   transition: background-color 0.3s;
@@ -79,11 +99,35 @@ h2 {
 
 .custom-btn:hover,
 .btn-default:hover {
-  background-color: #9B8FD4;
+  background-color: #9b8fd4;
 }
 
 .custom-btn.active,
 .btn-default.active {
-  background-color: #9B8FD4;
+  background-color: #9b8fd4;
   color: #242424;
+}
+
+.trendChlBox {
+  background-color: #b1afff; /* Light purple background */
+  padding: 20px; /* Add some padding */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  color: #333;
+  width: 50%;
+  height: 80%;
+  text-align: center;
+  margin: auto;
+}
+
+.trendChlBox h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.trendChlBox p {
+  font-size: 1rem;
+  color: #666;
 }
