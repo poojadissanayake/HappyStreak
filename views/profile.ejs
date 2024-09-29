@@ -20,153 +20,145 @@
         <section class="profile-section py-5">
             <div class="container">
                 <div class="row">
-                    <!-- Profile Left: Avatar and Info -->
-                    <div class="profile-info col-md-3 text-center">
-                        <div class="profile-avatar position-relative">
-                            <img src="/images/avatars/avatarskateboard.png" alt="Profile Avatar" class="img-fluid rounded-circle mb-3"> <!--profile avatar to be dynamically updated as part of next step-->
-                            <div class="edit-avatar">&#9998;</div>
+                <!-- Profile Info Section -->
+                    <div class="row">
+                        <div class="profile-info col-md-3 text-center">
+                            <div class="profile-avatar position-relative">
+                                <!-- Profile Avatar -->
+                                <img src="/images/avatars/avatarskateboard.png" alt="Profile Avatar" class="img-fluid rounded-circle mb-3">
+                            </div>
+                            <h2 id="name"><%= user.name %></h2> <!-- User's name dynamically updated from MongoDB <users> -->
                         </div>
-                        <h2 id="name"><%= user.name %></h2> <!-- user's name to be dynamically updated-->
-                        <p><i class="fa fa-map-marker-alt" style="font-size:24px"></i> Melbourne</p> <!--location to be dynamically updated as part of next step-->
-                    </div>
-        
-                    <!-- Profile Right: About, Challenges, Streak, Progress, and Trophy -->
-                    <div class="col-md-9">
-                        <div class="row mb-4">
-                            <!-- About Section -->
-                            <div class="about col-md-5">
-                                <h3>About</h3>
-                                <p>Welcome <%= user.name %>, time to update your profile to tell us more about yourself! You can share with us anything and everything under the sun, but most importantly time to start some challenges &#x1F600; </p> <!-- Welcome Message to prompt user to edit profile as part of next step-->
-                            </div>
-        
-                            <!-- Total Current Challenges Section -->
-                            <div class="challenges col-md-3 text-center">
-                                <h3>Total</h3>
-                                <p class="display-4" id="total-challenges"><%= challengesCount %></p> <!--total challenges per user to be dynamically updated-->
-                                <p>Challenges To Go</p>
-                            </div>
-        
-                            <!-- Join New Challenges Section -->
-                            <div class="newchallenges col-md-3">
-                                <div class="newchallenges-link mb-4">
-                                    <a href="/challenges" class="stretched-link"></a> 
-                                        <a href="/challenges" class="btn btn-custom">Join New Challenges</a>
-                                        <div class="add-sign mt-2">+</div> 
-                                </div>
+
+                        <!-- ChallengesToGo Section -->
+                        <div class="challengestogo col-md-2 text-center">
+                            <h3>Total</h3>
+                            <p class="display-4" id="challengestogo"><%= challengesToGoCount %></p> 
+                            <p>Challenges To Go</p>
+                        </div>
+                        
+                        <!-- Completed Challenges Section -->
+                        <div class="completedchallenges col-md-2 text-center">
+                            <h3>You are on fire!</h3>
+                            <p class="display-4" id="completedchallenges"><%= completedChallengesCount %>
+                            <img src="/images/icons/fire.png" alt="Fire Icon" style="width: 50px; height: 70px; vertical-align: middle;">
+                            </p> 
+                            <p>Challenges Completed</p>
+                        </div>
+
+                        <!-- Join New Challenges Section -->
+                        <div class="newchallenges col-md-2">
+                            <div class="newchallenges-link mb-4">
+                                <a href="/challenges" class="stretched-link"></a> 
+                                    <a href="/challenges" class="btn btn-custom">Join New Challenges</a>
+                                    <div class="add-sign mt-2">+</div>
                             </div>
                         </div>
                     </div>
-        
-                        <div class="row">
-                            <!-- Display Challenges Details Section -->
-                            <div class="col-md-8">
-                                <h3>Challenge Status</h3>
-                                <% if (challenges.length > 0) { %>
-                                    <div class="row">
-                                        <% challenges.forEach(challenge => { %>
-                                            <div class="col-md-6 mb-4">
-                                                <div class="card challenge-card"> 
-                                                    <div class="card-body">
-                                                        <h5 class="card-title"><%= challenge.title %></h5>
-                                                        <p class="card-text">Category: <%= challenge.category %></p>
-                            
-                                                        <!-- Calculate progress percentage -->
-                                                        <% const progressPercentage = (challenge.total_steps > 0) ? (challenge.steps_progress / challenge.total_steps) * 100 : 0; %>
-                            
-                                                        <!-- Progress Bar -->
-                                                        <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: <%= progressPercentage %>%;" aria-valuenow="<%= challenge.steps_progress %>" aria-valuemin="0" aria-valuemax="<%= challenge.total_steps %>">
-                                                                <%= challenge.steps_progress %> / <%= challenge.total_steps %>                                                    
-                                                            </div>
+                                    
+                    <!-- Challenge Status: Ongoing Challenges -->
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h3>Challenge Status</h3>
+                            <% if (challenges.length > 0) { %>
+                                <div class="row">
+                                    <% challenges.forEach(challenge => { 
+                                        // Display only ongoing challenges (where progress < total_steps)
+                                        if (challenge.steps_progress < challenge.total_steps) { 
+                                    %>
+                                        <div class="col-md-4 mb-4">
+                                            <div class="card challenge-card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><%= challenge.title %></h5>
+                                                    <p class="card-text">Category: <%= challenge.category %></p>
+
+                                                    <!-- Calculate progress percentage -->
+                                                    <% const progressPercentage = (challenge.total_steps > 0) ? (challenge.steps_progress / challenge.total_steps) * 100 : 0; %>
+
+                                                    <!-- Progress Bar -->
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" style="width: <%= progressPercentage %>%;" aria-valuenow="<%= challenge.steps_progress %>" aria-valuemin="0" aria-valuemax="<%= challenge.total_steps %>">
+                                                            <%= challenge.steps_progress %> / <%= challenge.total_steps %>
                                                         </div>
-                            
-                                                        <!-- Button to Open Progress Checklist -->
-                                                        <button type='button' class='btn custom-button mt-2' data-bs-toggle='modal' data-bs-target='#stepsModal<%= challenge.id %>'>Track Progress</button>
-                                                        <button type='button' class='btn custom-button-2 mt-2' onclick="deleteChallenge('<%= user._id %>', '<%= challenge.id %>')">Delete Challenge</button>                                                    </div>
+                                                    </div>
+
+                                                    <!-- Button to Open Progress Checklist -->
+                                                    <button type='button' class='btn custom-button mt-2' data-bs-toggle='modal' data-bs-target='#stepsModal<%= challenge.id %>'>Track Progress</button>
+                                                    <button type='button' class='btn custom-button-2 mt-2' onclick="deleteChallenge('<%= user._id %>', '<%= challenge.id %>')">Delete Challenge</button>
                                                 </div>
-                            
-                                                <!-- Progress Checklist -->
-                                                <div class='modal fade' id='stepsModal<%= challenge.id %>' tabindex='-1' role='dialog' aria-labelledby='stepsModalLabel<%= challenge.id %>' aria-hidden='true'>
-                                                    <div class='modal-dialog' role='document'>
-                                                        <div class='modal-content'>
-                                                            <div class='modal-header'>
-                                                                <h5 class='modal-title' id='stepsModalLabel<%= challenge.id %>'>Steps for <%= challenge.title %></h5>
-                                                                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                                                            </div>
-                                                            <div class='modal-body'>
-                                                                <form id='stepsForm<%= challenge.id %>'>
-                                                                    <% if (challenge.steps) { %> 
-                                                                        <% challenge.steps.forEach((step, index) => { %>
-                                                                            <div class="form-check">
-                                                                                <input class="form-check-input" type="checkbox" value="<%= step %>" id="step<%= challenge.id %>-<%= index %>" <%= index < challenge.steps_progress ? 'checked' : '' %>>
-                                                                                <label class="form-check-label" for="step<%= challenge.id %>-<%= index %>">
-                                                                                    <%= step %>
-                                                                                </label>
-                                                                            </div>
-                                                                        <% }); %>
-                                                                    <% } else { %>
-                                                                        <p>No steps available for this challenge.</p>
-                                                                    <% } %>
-                                                                </form>
-                                                            </div>
-                                                            <div class='modal-footer'>
-                                                                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                                                <button type='button' class='btn custom-button' onclick="saveProgress('<%= challenge.id %>', '<%= user._id %>')">Save Progress</button>
-                                                            </div>
+                                            </div>
+
+                                            <!-- Progress Checklist -->
+                                            <div class='modal fade' id='stepsModal<%= challenge.id %>' tabindex='-1' role='dialog' aria-labelledby='stepsModalLabel<%= challenge.id %>' aria-hidden='true'>
+                                                <div class='modal-dialog' role='document'>
+                                                    <div class='modal-content'>
+                                                        <div class='modal-header'>
+                                                            <h5 class='modal-title' id='stepsModalLabel<%= challenge.id %>'>Steps for <%= challenge.title %></h5>
+                                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                        </div>
+                                                        <div class='modal-body'>
+                                                            <form id='stepsForm<%= challenge.id %>'>
+                                                                <% if (challenge.steps) { %>
+                                                                    <% challenge.steps.forEach((step, index) => { %>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox" value="<%= step %>" id="step<%= challenge.id %>-<%= index %>" <%= index < challenge.steps_progress ? 'checked' : '' %>>
+                                                                            <label class="form-check-label" for="step<%= challenge.id %>-<%= index %>">
+                                                                                <%= step %>
+                                                                            </label>
+                                                                        </div>
+                                                                    <% }); %>
+                                                                <% } else { %>
+                                                                    <p>No steps available for this challenge.</p>
+                                                                <% } %>
+                                                            </form>
+                                                        </div>
+                                                        <div class='modal-footer'>
+                                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                                                            <button type='button' class='btn custom-button' onclick="saveProgress('<%= challenge.id %>', '<%= user._id %>')">Save Progress</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                            
-                                            </div>
-                                        <% }); %>
-                                    </div>
-                                <% } else { %>
-                                    <p>No challenges yet - start one today!</p>
-                                <% } %>
-                            </div>
-        
-                            <!-- Trophy Case Section -->
-                            <div class="col-md-4">
-                                <h3>Trophy Case</h3>
-                                <div class="row" id="trophy-case"> <!--ID to be dynamically updated as part of next step- -->
-                                    <!-- Trophy Card 1 -->
-                                    <div class="col-md-4 mb-4">
-                                        <div class="trophy-card">
-                                            <img src="/images/icons/5ktrophy.png" class="card-img-top" alt="5K Runner">
-                                            <div class="card-body text-center">
-                                                <p class="card-title">5K Runner</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- Trophy Card 2 -->
-                                    <div class="col-md-4 mb-4">
-                                        <div class="trophy-card">
-                                            <img src="/images/icons/fitnesstrophy.png" class="card-img-top" alt="Fitness Guru">
-                                            <div class="card-body text-center">
-                                                <p class="card-title">Fitness Guru</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Trophy Card 3 -->
-                                    <div class="col-md-4 mb-4">
-                                        <div class="trophy-card">
-                                            <img src="/images/icons/socialbutterflymedal.png" class="card-img-top" alt="Social Butterfly">
-                                            <div class="card-body text-center">
-                                                <p class="card-title">Social Butterfly</p>
-                                            </div>
+                                    <% } // end if condition for ongoing challenges
+                                    }); %>
+                                </div>
+                            <% } else { %>
+                                <p>No challenges yet - start one today!</p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!-- Trophy Case (Challenges Completed) -->
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                        <h3>Trophy Case: Completed Challenges</h3>
+                        <% if (completedChallenges.length > 0) { %>
+                            <div class="row">
+                                <% completedChallenges.forEach(challenge => { %>
+                                <div class="col-md-4 mb-4">
+                                    <div class="card trophy-card">
+                                        <div class="card-body text-center">
+                                        <i class="fas fa-trophy" style="font-size: 50px; color: gold;"></i>
+                                        <h3 class="card-title mt-2"><%= challenge.title %></h3>
+                                        <p class="card-text">Challenge Category: <%= challenge.category %></p>
                                         </div>
                                     </div>
                                 </div>
+                            <% }); %>
                             </div>
+                            <% } else { %>
+                            <p>No trophies earned yet.</p>
+                            <% } %>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-            <!-- Include Footer -->
-            <%- include('footer') %>
+        <!-- Include Footer -->
+        <%- include('footer') %>
     </div>
+</body>
 
     <!-- JavaScript function for buttons - save progress and delete challenge -->
     <script>
@@ -211,21 +203,9 @@
     });
 }
 
-    // save progress of challenge 
-    //function saveProgress(challengeId) {
-        //const checkedSteps = [];
-        //const checkboxes = document.querySelectorAll(`#stepsForm${challengeId} .form-check-input:checked`);
-        
-        //checkboxes.forEach(checkbox => {
-            //checkedSteps.push(checkbox.value);
-        //});
-
-        //console.log('Checked Steps for Challenge ID', challengeId, ':', checkedSteps);
-    //}
-
-    // delete user's specific challenge 
+    // Delete user's specific challenge 
     function deleteChallenge(userId, challengeId) {
-        console.log('Deleting Challenge:', { userId, challengeId }); // Log the IDs
+        console.log('Deleting Challenge:', { userId, challengeId });
         fetch(`/profile/${userId}/delete-challenge/${challengeId}`, {
             method: 'DELETE',
         })

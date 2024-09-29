@@ -40,8 +40,15 @@ exports.getUserProfile = async (req, res) => {
         // Filter out any null challenges
         const validChallenges = challenges.filter(challenge => challenge !== null);
 
-        // Render profile.ejs and pass user and challenges data
-        res.render('profile', { user, challenges: validChallenges, challengesCount });
+        // Calculate completed challenges
+        const completedChallenges = validChallenges.filter(challenge => challenge.steps_progress === challenge.total_steps);
+        const completedChallengesCount = completedChallenges.length;
+
+        // Count ongoing challenges
+        const challengesToGoCount = challengesCount - completedChallengesCount;
+
+        // Render profile.ejs and pass user, challenges and completed challenges data
+        res.render('profile', { user, challenges: validChallenges, challengesCount, completedChallenges, completedChallengesCount, challengesToGoCount });
     } catch (error) {
         console.error("Error fetching user profile:", error);
         res.status(500).json({ message: 'Internal server error' });
