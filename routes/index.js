@@ -47,6 +47,15 @@ router.get('/profile', (req, res) => {
     res.render('profile');
 });
 
+// to-do: check if this is working once camille setup profile with userId
+app.get("/getUserId", (req, res) => {
+  if (req.session.userId) {
+    res.json({ userId: req.session.userId });
+  } else {
+    res.status(401).json({ message: "No logged in user" });
+  }
+});
+
 router.use('/userChallenges', userChallengeRoute);
 
 // Use challengeRoute for the '/challenges' path

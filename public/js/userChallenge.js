@@ -1,5 +1,23 @@
+async function getUserId() {
+    try {
+      const response = await fetch('/getUserId');
+      if (response.ok) {
+        const data = await response.json();
+        return data.userId;
+      } else {
+        console.error('Error fetching userId..');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  }
+
 async function addChallenge(challenge) {
     console.log(challenge)
+    // to-do: check if this is working once camille setup profile with userId
+    // const userId = await getUserId();
     const userId = '66eaded3bb0238296c1938cb'; // Hard coded now till we get the userId from logged in user
     const challengeId = challenge._id;
     const steps = challenge.steps;
