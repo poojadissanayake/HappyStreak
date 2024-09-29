@@ -53,9 +53,9 @@ io.on("connection", (socket) => {
 async function startServer() {
   await connectDB(); // Wait for the database connection
 
-// Middleware to parse JSON and URL-encoded data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  // Middleware to parse JSON and URL-encoded data
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
   // Middleware to parse JSON and URL-encoded data
   app.use(express.json());
@@ -114,49 +114,47 @@ app.use(express.urlencoded({ extended: true }));
       console.log("user disconnected");
     });
   });
-  
+
   // Built-in middleware to parse URL-encoded data
   app.use(express.urlencoded({ extended: true }));
 
-// Parse JSON bodies
-app.use(express.json());
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+  // Parse JSON bodies
+  app.use(express.json());
+  // Serve static files from the 'public' directory
+  app.use(express.static(path.join(__dirname, 'public')));
 
+  app.use(sessionMiddleware);
 
-
-app.use(sessionMiddleware);
-
-// Pass the session middleware to Socket.IO
-io.use((socket, next) => {
+  // Pass the session middleware to Socket.IO
+  io.use((socket, next) => {
     sessionMiddleware(socket.request, socket.request.res || {}, next);
-});
+  });
 
-// Use routes
-app.use('/', routes);
+  // Use routes
+  app.use('/', routes);
 
-// Socket.IO connection handler
-io.on('connection', (socket) => {
+  // Socket.IO connection handler
+  io.on('connection', (socket) => {
     const session = socket.request.session;
-    
+
     console.log('user connected');
-    
+
     if (session.userId) {
-        console.log(`User ID from session: ${session.userId}`);
+      console.log(`User ID from session: ${session.userId}`);
     } else {
-        console.log('No user in session');
+      console.log('No user in session');
     }
-    
+
     socket.on('markStep', (data) => {
-        const { challengeId, step } = data;
-        // Handle marking the step in the challenge for this user --> should work on this later
-        console.log(`Marking step ${step} of challenge ${challengeId} for user ${session.userId}`);
+      const { challengeId, step } = data;
+      // Handle marking the step in the challenge for this user --> should work on this later
+      console.log(`Marking step ${step} of challenge ${challengeId} for user ${session.userId}`);
     });
 
     socket.on('disconnect', () => {
-        console.log('user disconnected');
+      console.log('user disconnected');
     });
-});
+  });
   // Middleware to parse JSON and URL-encoded data
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -165,7 +163,7 @@ io.on('connection', (socket) => {
   // Serve static files from the 'public' directory
   app.use(express.static(path.join(__dirname, "public")));
   // Set up session middleware
- 
+
   app.use(sessionMiddleware);
 
   // Pass the session middleware to Socket.IO
@@ -203,7 +201,7 @@ io.on('connection', (socket) => {
       console.log("user disconnected");
     });
   });
-  
+
   // Built-in middleware to parse URL-encoded data
   app.use(express.urlencoded({ extended: true }));
 
