@@ -59,12 +59,31 @@
                                                         <h5 class="card-title"><%= challenge.title %></h5>
                                                         <p class="card-text">Category: <%= challenge.category %></p>
                                                         <!-- Progress Bar -->
+                                                        <!--Calculate the progress percentage i.e. steps_progress / total_steps-->
                                                         <% const progressPercentage = (challenge.total_steps > 0) ? (challenge.steps_progress / challenge.total_steps) * 100 : 0; %>
-                                                        <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: <%= progressPercentage %>%" aria-valuenow="<%= challenge.steps_progress %>" aria-valuemin="0" aria-valuemax="<%= challenge.total_steps %>">
-                                                                <%= challenge.steps_progress %> / <%= challenge.total_steps %>
+                                                        <!--Map each steps_progress to the respective CSS class -->
+                                                        <% const progressClass = (() => {
+                                                                const progressMap = {
+                                                                    0: 'progress-bar-0',
+                                                                    1: 'progress-bar-16',
+                                                                    2: 'progress-bar-33',
+                                                                    3: 'progress-bar-50',
+                                                                    4: 'progress-bar-66',
+                                                                    5: 'progress-bar-83',
+                                                                    6: 'progress-bar-100'
+                                                                };
+                                                                return progressMap[challenge.steps_progress] || 'progress-bar-0';
+                                                            })(); 
+                                                            %>
+                                                            <div class="progress">
+                                                                <div class="progress-bar <%= progressClass %>" 
+                                                                     role="progressbar" 
+                                                                     aria-valuenow="<%= challenge.steps_progress %>" 
+                                                                     aria-valuemin="0" 
+                                                                     aria-valuemax="<%= challenge.total_steps %>">
+                                                                    <%= challenge.steps_progress %> / <%= challenge.total_steps %>
+                                                                </div>
                                                             </div>
-                                                        </div>
                                                         <button type="button" class="btn custom-button mt-2" data-bs-toggle="modal" data-bs-target="#stepsModal<%= challenge.id %>">Track Progress</button>
                                                         <button type="button" class="btn custom-button-2 mt-2" onclick="deleteChallenge('<%= user._id %>', '<%= challenge.id %>')">Delete Challenge</button>
                                                     </div>
