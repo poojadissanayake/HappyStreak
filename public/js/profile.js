@@ -52,3 +52,4 @@ function deleteChallenge(userId, challengeId) {
           alert('An error occurred while deleting the challenge.');
       });
 }
+

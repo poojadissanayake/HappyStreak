@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb'); // Import ObjectId
 
 // Getting user profile details
 const getUserProfile = async (req, res) => {
-    const userId = req.query.userId || '66eaded3bb0238296c1938cb'; // hard coded userId
+    userId = req.query.userId || '66eaded3bb0238296c1938cb';
 
     if (!userId) {
         return res.status(400).json({ message: 'User ID is required.' });

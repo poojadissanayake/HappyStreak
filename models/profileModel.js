@@ -5,7 +5,7 @@ const { ObjectId } = require('mongodb'); // Import ObjectId
 const findById = async (userId) => {
     const db = getDB();
     const collection = db.collection('users');
-    return await collection.findOne({ _id: new ObjectId(userId) });
+    return await collection.findOne({ _id: new ObjectId(userId) }); 
 };
 
 // Fetch user challenges by userId
