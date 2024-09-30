@@ -3,19 +3,27 @@ const { ObjectId } = require('mongodb'); // Import ObjectId
 
 // Getting user profile details
 const getUserProfile = async (req, res) => {
-    userId = req.query.userId || '66eaded3bb0238296c1938cb';
+    const userId = req.query.userId || '66eaded3bb0238296c1938cb'; // hard coded if not to use const userId = req.params.userId; 
 
     if (!userId) {
         return res.status(400).json({ message: 'User ID is required.' });
     }
 
+    // Ensure the userId is a valid ObjectId
+    let objectId;
     try {
-        const user = await profileModel.findById(userId);
+        objectId = new ObjectId(userId);
+    } catch (error) {
+        return res.status(400).json({ message: 'Invalid User ID format.' });
+    }
+
+    try {
+        const user = await profileModel.findById(objectId); 
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
         }
 
-        const userChallenges = await profileModel.getUserChallenges(userId);
+        const userChallenges = await profileModel.getUserChallenges(objectId);
         const challengesCount = userChallenges.length;
 
         // Fetch challenge details for each user challenge
@@ -39,7 +47,7 @@ const getUserProfile = async (req, res) => {
         const challengesToGoCount = challengesCount - completedChallengesCount;
 
         res.render('profile', {
-            user: user,
+            user,
             userId,
             challenges: validChallenges,
             challengesCount,
@@ -62,7 +70,7 @@ const deleteChallenge = async (req, res) => {
     }
 
     try {
-        await profileModel.deleteUserChallenge(userId, challengeId);
+        await profileModel.deleteUserChallenge(new ObjectId(userId), new ObjectId(challengeId));
         res.status(200).json({ success: true, message: 'Challenge deleted successfully' });
     } catch (error) {
         console.error('Error deleting challenge:', error);
@@ -80,7 +88,7 @@ const updateChallengeProgress = async (req, res) => {
     }
 
     try {
-        const updated = await profileModel.updateUserProgress(userId, challengeId, progress);
+        const updated = await profileModel.updateUserProgress(new ObjectId(userId), new ObjectId(challengeId), progress);
         if (updated) {
             res.status(200).json({ success: true, message: 'Progress updated successfully' });
         } else {
