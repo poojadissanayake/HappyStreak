@@ -1,84 +1,88 @@
 const profileModel = require('../models/profileModel');
 const { ObjectId } = require('mongodb'); // Import ObjectId
 
-// Getting user profile details 
-exports.getUserProfile = async (req, res) => {
-    const userId = req.params.userId; 
+// Getting user profile details
+const getUserProfile = async (req, res) => {
+    const userId = req.query.userId || '66eaded3bb0238296c1938cb'; // hard coded userId
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required.' });
+    }
+
     try {
-        // Fetch user details using ObjectId
-        const user = await profileModel.findById(new ObjectId(userId)); // Convert userId to ObjectId
-        
+        const user = await profileModel.findById(userId);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'User not found.' });
         }
 
-        // Fetch user's challenges
         const userChallenges = await profileModel.getUserChallenges(userId);
-
-        // Count the number of challenges belonging to the user
         const challengesCount = userChallenges.length;
-        
+
         // Fetch challenge details for each user challenge
         const challenges = await Promise.all(userChallenges.map(async (userChallenge) => {
-                        const challenge = await profileModel.getChallengeById(new ObjectId(userChallenge.challengeId)); // Convert challengeId to ObjectId
-            
-            if (!challenge) {
-                console.warn("Challenge not found for ID:", userChallenge.challengeId);
-                return null; // Return null if challenge is not found
-            }
+            const challenge = await profileModel.getChallengeById(userChallenge.challengeId);
+            if (!challenge) return null;
 
             return {
                 id: userChallenge.challengeId,
                 title: challenge.title,
                 category: challenge.category,
-                steps_progress: userChallenge.progress, 
-                total_steps: userChallenge.steps.length,
+                steps_progress: userChallenge.progress,
+                total_steps: challenge.steps.length,
                 steps: challenge.steps
             };
         }));
 
-        // Filter out any null challenges
         const validChallenges = challenges.filter(challenge => challenge !== null);
-
-        // Calculate completed challenges
         const completedChallenges = validChallenges.filter(challenge => challenge.steps_progress === challenge.total_steps);
         const completedChallengesCount = completedChallenges.length;
-
-        // Count ongoing challenges
         const challengesToGoCount = challengesCount - completedChallengesCount;
 
-        // Render profile.ejs and pass user, challenges and completed challenges data
-        res.render('profile', { user, userId, challenges: validChallenges, challengesCount, completedChallenges, completedChallengesCount, challengesToGoCount });
+        res.render('profile', {
+            user: user,
+            userId,
+            challenges: validChallenges,
+            challengesCount,
+            completedChallenges,
+            completedChallengesCount,
+            challengesToGoCount
+        });
     } catch (error) {
-        console.error("Error fetching user profile:", error);
-        res.status(500).json({ message: 'Internal server error' });
+        console.error('Error fetching user profile:', error);
+        res.status(500).json({ message: 'Error fetching user profile' });
     }
 };
 
-// Delete challenge 
-exports.deleteChallenge = async (req, res) => {
-    const { userId, challengeId } = req.params;
+// Delete a specific challenge
+const deleteChallenge = async (req, res) => {
+    const { userId, challengeId } = req.query;
+
+    if (!userId || !challengeId) {
+        return res.status(400).json({ message: 'User ID and Challenge ID are required.' });
+    }
 
     try {
         await profileModel.deleteUserChallenge(userId, challengeId);
-        
-        res.json({ success: true, message: 'Challenge deleted successfully' });
+        res.status(200).json({ success: true, message: 'Challenge deleted successfully' });
     } catch (error) {
-        console.error("Error deleting challenge:", error);
+        console.error('Error deleting challenge:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
 
-// Update the challenge progress for the user
-exports.updateChallengeProgress = async (req, res) => {
-    const { userId, challengeId } = req.params;
+// Update challenge progress
+const updateChallengeProgress = async (req, res) => {
+    const { userId, challengeId } = req.query;
     const { progress } = req.body;
+
+    if (!userId || !challengeId || progress === undefined) {
+        return res.status(400).json({ message: 'User ID, Challenge ID, and Progress are required.' });
+    }
 
     try {
         const updated = await profileModel.updateUserProgress(userId, challengeId, progress);
-        
         if (updated) {
-            res.json({ success: true, message: 'Progress updated successfully' });
+            res.status(200).json({ success: true, message: 'Progress updated successfully' });
         } else {
             res.status(404).json({ success: false, message: 'Challenge not found' });
         }
@@ -87,3 +91,5 @@ exports.updateChallengeProgress = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
+
+module.exports = { getUserProfile, deleteChallenge, updateChallengeProgress };

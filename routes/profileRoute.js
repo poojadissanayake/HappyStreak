@@ -1,15 +1,14 @@
 const express = require('express');
 const profileController = require('../controllers/profileController');
-
 const router = express.Router();
 
-// Route for retrieving user profile by user ID
+// Route for retrieving user profile
 router.get('/profile/:userId', profileController.getUserProfile);
 
-// Route for deleting specific challenge
-router.delete('/profile/:userId/delete-challenge/:challengeId', profileController.deleteChallenge);
+// Route for deleting a challenge
+router.delete('/profile/delete-challenge', profileController.deleteChallenge);
 
 // Route for updating progress
-router.post('/profile/:userId/update-progress/:challengeId', profileController.updateChallengeProgress);
+router.post('/profile/update-progress', profileController.updateChallengeProgress);
 
 module.exports = router;
