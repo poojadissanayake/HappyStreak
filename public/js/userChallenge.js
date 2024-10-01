@@ -15,10 +15,9 @@ async function getUserId() {
   }
 
 async function addChallenge(challenge) {
-    console.log(challenge)
-    // to-do: check if this is working once camille setup profile with userId
-    // const userId = await getUserId();
-    const userId = '66eaded3bb0238296c1938cb'; // Hard coded now till we get the userId from logged in user
+    console.log(challenge);
+    const userId = await getUserId();
+    console.log("challengeuserid",userId);
     const challengeId = challenge._id;
     const steps = challenge.steps;
     console.log(challengeId);

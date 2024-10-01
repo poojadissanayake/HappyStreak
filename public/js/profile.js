@@ -4,9 +4,26 @@
     //window.location.href = "/login";
   //}
 //});
+async function getUserId() {
+    try {
+      const response = await fetch('/getUserId');
+      if (response.ok) {
+        const data = await response.json();
+        return data.userId;
+      } else {
+        console.error('Error fetching userId..');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return null;
+    }
+  }
 
 // Update progress
-function saveProgress(challengeId, userId) {
+async function saveProgress(challengeId) {
+    const userId = await getUserId();
+    console.log("getuser: "+userId)
   const checkboxes = document.querySelectorAll(`#stepsForm${challengeId} .form-check-input`);
   let checkedSteps = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
   let progress = checkedSteps;

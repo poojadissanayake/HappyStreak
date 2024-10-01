@@ -1,6 +1,7 @@
 const { addUserChallenge, updateChallengeProgress } = require('../models/userChallengeModel');
 
 const joinChallenge = async (req, res) => {
+    console.log('Request body:', req.body); 
     const { userId, challengeId, steps } = req.body;
 
     if (!userId || !challengeId || !steps) {

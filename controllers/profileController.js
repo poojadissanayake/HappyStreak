@@ -1,34 +1,34 @@
 const profileModel = require('../models/profileModel');
+const userChallengeModel = require('../models/userChallengeModel');
 const { ObjectId } = require('mongodb'); // Import ObjectId
 
+console.log('Profile Model:', profileModel);
 // Getting user profile details
 const getUserProfile = async (req, res) => {
-    const userId = req.query.userId || '66eaded3bb0238296c1938cb'; // hard coded if not to use const userId = req.params.userId; 
-
+    const userId = req.session.userId;
+    console.log("from profileController getUserProfile: " + userId);
     if (!userId) {
-        return res.status(400).json({ message: 'User ID is required.' });
-    }
-
-    // Ensure the userId is a valid ObjectId
-    let objectId;
-    try {
-        objectId = new ObjectId(userId);
-    } catch (error) {
-        return res.status(400).json({ message: 'Invalid User ID format.' });
+        // return res.status(400).json({ message: 'User ID is required.' });
+        return res.status(401).json({ message: 'User not logged in' });
     }
 
     try {
-        const user = await profileModel.findById(objectId); 
+        // const user = await profileModel.findById(objectId); 
+
+        const user = await profileModel.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
         }
 
-        const userChallenges = await profileModel.getUserChallenges(objectId);
+        const userChallenges = await profileModel.getUserChallenges(userId);
         const challengesCount = userChallenges.length;
+        console.log('Retrieved User Challenges:', userChallenges);
 
         // Fetch challenge details for each user challenge
         const challenges = await Promise.all(userChallenges.map(async (userChallenge) => {
+
             const challenge = await profileModel.getChallengeById(userChallenge.challengeId);
+            console.log('Challenge ID:', userChallenge.challengeId);
             if (!challenge) return null;
 
             return {
@@ -36,18 +36,20 @@ const getUserProfile = async (req, res) => {
                 title: challenge.title,
                 category: challenge.category,
                 steps_progress: userChallenge.progress,
-                total_steps: challenge.steps.length,
+                total_steps: userChallenge.steps.length,
                 steps: challenge.steps
             };
         }));
 
-        const validChallenges = challenges.filter(challenge => challenge !== null);
+        const validChallenges = challenges.filter(challenge => challenge);
         const completedChallenges = validChallenges.filter(challenge => challenge.steps_progress === challenge.total_steps);
         const completedChallengesCount = completedChallenges.length;
         const challengesToGoCount = challengesCount - completedChallengesCount;
+        console.log("validChallenges");
+        console.log(validChallenges);
 
         res.render('profile', {
-            user,
+            user: user,
             userId,
             challenges: validChallenges,
             challengesCount,
@@ -63,14 +65,17 @@ const getUserProfile = async (req, res) => {
 
 // Delete a specific challenge
 const deleteChallenge = async (req, res) => {
-    const { userId, challengeId } = req.query;
+    // const { userId, challengeId } = req.query;
+    const userId = req.session.userId;
+    const { challengeId } = req.body;
 
     if (!userId || !challengeId) {
         return res.status(400).json({ message: 'User ID and Challenge ID are required.' });
     }
 
     try {
-        await profileModel.deleteUserChallenge(new ObjectId(userId), new ObjectId(challengeId));
+        await profileModel.deleteUserChallenge(userId, challengeId);
+        // await profileModel.deleteUserChallenge(new ObjectId(userId), new ObjectId(challengeId));
         res.status(200).json({ success: true, message: 'Challenge deleted successfully' });
     } catch (error) {
         console.error('Error deleting challenge:', error);
@@ -80,15 +85,18 @@ const deleteChallenge = async (req, res) => {
 
 // Update challenge progress
 const updateChallengeProgress = async (req, res) => {
-    const { userId, challengeId } = req.query;
-    const { progress } = req.body;
+    // const { userId, challengeId } = req.query;
+    const userId = req.session.userId;
+    // const { progress } = req.body;
+    const { challengeId, progress } = req.body;
 
     if (!userId || !challengeId || progress === undefined) {
         return res.status(400).json({ message: 'User ID, Challenge ID, and Progress are required.' });
     }
 
     try {
-        const updated = await profileModel.updateUserProgress(new ObjectId(userId), new ObjectId(challengeId), progress);
+        const updated = await profileModel.updateUserProgress(userId, challengeId, progress);
+        // const updated = await profileModel.updateUserProgress(new ObjectId(userId), new ObjectId(challengeId), progress);
         if (updated) {
             res.status(200).json({ success: true, message: 'Progress updated successfully' });
         } else {

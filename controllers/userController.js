@@ -2,50 +2,49 @@ const bcrypt = require("bcrypt");
 const userModel = require("../models/userModel");
 
 async function renderLogin(req, res) {
-  res.render("login");
+  res.render("login", { error: null });
 }
 
 async function loginUser(req, res) {
   try {
     const { email, password } = req.body;
     const user = await userModel.findUserByEmail(email);
-
+    console.log("Fetched user:", user);
+    if (!user) {
+      return res.render("login", { error: "Invalid credentials" });
+    }
     if (user) {
+      console.log("User found in database:", user);
+
       // Compare entered password with stored hashed password
       const isMatch = await bcrypt.compare(password, user.password);
+      console.log("Password match result:", isMatch);
+
       if (isMatch) {
-        // Handle successful login (e.g., create session)
+        req.session.userId = user._id; // Store user ID in session
+        console.log("User logged in, user ID: " + req.session.userId);
         return res.json({
-          statusCode: 201,
-          message: "Login Successful",
-          data: {
-            name: user.name,
-            id: user._id,
-          },
+          statusCode: 200,
+          message: "Login successful",
+          data: { id: user._id }
         });
-        // return res.redirect("/profile");
-        // return res.render("login", { success: "Login successful!" }); // Pass success message
-      } else {
+      }
+      else {
         return res.json({
           statusCode: 401,
           message: "Invalid credentials",
         });
-        // return res.render("login", { error: "Invalid credentials" });
       }
     } else {
       return res.json({
         statusCode: 401,
         message: "Invalid credentials",
       });
-      // return res.render("login", { error: "Invalid credentials" });
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Login error:", error);
-    return res.json({
-      statusCode: 401,
-      message: "Invalid credentials",
-    });
-    // return res.render("login", { error: "Something went wrong" });
+    return res.render("login", { error: "Something went wrong" });
   }
 }
 
