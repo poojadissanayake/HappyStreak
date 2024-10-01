@@ -22,20 +22,24 @@ const getChallengeById = async (challengeId) => {
 // Delete user's specific challenge
 const deleteUserChallenge = async (userId, challengeId) => {
     const db = getDB();
-    await db.collection('user_challenges').deleteOne({
+    const result = await db.collection('user_challenges').deleteOne({
         userId: userId,
-        challengeId: challengeId
+        challengeId: challengeId 
     });
+    
+    return result;
 };
 
 // Update progress of a challenge for a user
 const updateUserProgress = async (userId, challengeId, progress) => {
     const db = getDB();
+    
     const result = await db.collection('user_challenges').updateOne(
-        { userId: userId, challengeId: challengeId },
+        { userId: userId, challengeId: challengeId }, 
         { $set: { progress: progress } }
     );
-    return result.modifiedCount > 0;
+    
+    return result.modifiedCount > 0; 
 };
 
 module.exports = { findById, getUserChallenges, getChallengeById, deleteUserChallenge, updateUserProgress };

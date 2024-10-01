@@ -61,16 +61,20 @@ const getUserProfile = async (req, res) => {
 
 // Delete a specific challenge
 const deleteChallenge = async (req, res) => {
-    const userId = req.session.userId;
-    const { challengeId } = req.body;
+    const userId = req.session.userId; 
+    const { challengeId } = req.body; 
 
     if (!userId || !challengeId) {
         return res.status(400).json({ message: 'User ID and Challenge ID are required.' });
     }
 
     try {
-        await profileModel.deleteUserChallenge(userId, challengeId);
-        res.status(200).json({ success: true, message: 'Challenge deleted successfully' });
+        const result = await profileModel.deleteUserChallenge(userId, challengeId);
+        if (result.deletedCount > 0) { 
+            res.status(200).json({ success: true, message: 'Challenge deleted successfully' });
+        } else {
+            res.status(404).json({ success: false, message: 'Challenge not found' });
+        }
     } catch (error) {
         console.error('Error deleting challenge:', error);
         res.status(500).json({ success: false, message: 'Internal server error' });
@@ -79,8 +83,8 @@ const deleteChallenge = async (req, res) => {
 
 // Update challenge progress
 const updateChallengeProgress = async (req, res) => {
-    const userId = req.session.userId;
-    const { challengeId, progress } = req.body;
+    const userId = req.session.userId; 
+    const { challengeId, progress } = req.body; 
 
     if (!userId || !challengeId || progress === undefined) {
         return res.status(400).json({ message: 'User ID, Challenge ID, and Progress are required.' });
@@ -98,5 +102,4 @@ const updateChallengeProgress = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
-
 module.exports = { getUserProfile, deleteChallenge, updateChallengeProgress };
