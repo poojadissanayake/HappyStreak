@@ -65,32 +65,30 @@
         <!-- Modal to show the challenge details -->
         <%- include('challengeDetailModal') %>
           <!-- Trending Challenges section -->
-          <div class="row mb-5">
-            <div class="col">
-              <h2 class="text-start">Trending Challenges</h2>
-              <!-- <div class="row mb-4">
-            <% challenges.forEach(challenge=> { %>
-              <% if (selectedCategory==='all' || selectedCategory===challenge.category) { %>
-                <div class="col-md-3 mb-4">
-                  <div class="card challenge-card">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                      <h5 class="card-title">
-                        <%= challenge.title %>
-                      </h5>
-                      <p class="card-text">
-                        <%= challenge.description %>
-                      </p>
-                      <a class="btn btn-add" onclick="addChallenge('<%= JSON.stringify(challenge)  %>')">+</a> -->
-              <!-- </div> -->
-              <!-- </div> -->
-              <!-- </div> -->
-              <!-- <% } %> -->
-              <!-- <% }); %> -->
-              <!-- </div>  -->
+          <div class="container my-5">
+            <h2>Most Popular Challenge</h2>
+            <div class="row justify-content-center mb-4">
+                <% if (topChallenge) { %>
+                    <div class="col-md-3 mb-4"> 
+                        <div class="card challenge-card">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div data-bs-toggle="modal" data-bs-target="#challengeDetailModal" 
+                                     onclick="populateChallengeDetailModal('<%= topChallenge.title %>', '<%= topChallenge.description %>', 
+                                     JSON.parse('<%= JSON.stringify(topChallenge.steps) %>'))">
+                                    <h5 class="card-title"><%= topChallenge.title %></h5>
+                                    <p class="card-text"><%= topChallenge.description %></p>
+                                </div>
+                                <a class="btn btn-add" 
+                                   onclick="addChallenge(JSON.parse('<%= JSON.stringify(topChallenge) %>'))">+</a>
+                            </div>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <p>No trending challenge available.</p>
+                <% } %>
             </div>
-          </div>
+        </div>
       </div>
-
       <!-- Include Footer -->
       <%- include('footer') %>
   </div>
