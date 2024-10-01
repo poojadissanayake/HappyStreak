@@ -1,53 +1,63 @@
 const { getDB } = require('../dbConnection');
 const { ObjectId } = require('mongodb');
- 
+
 const fetchTopChallenge = async () => {
-  const db = getDB();
-  const userChallengesCollection = db.collection('user_challenges');
- 
-  // the challenge that has the highest number of users participating in it
-  const topChallenge = await userChallengesCollection
-    //   help complex data processing and query
-    .aggregate([
-      {
-        $group: {
-          _id: '$challengeId',
-          totalUsers: { $sum: 1 },
+  try {
+    const db = getDB();
+    const userChallengesCollection = db.collection('user_challenges');
+
+    // Aggregation pipeline
+    const topChallenge = await userChallengesCollection
+      .aggregate([
+        {
+          $group: {
+            _id: '$challengeId', // This is the string FK (foreign key)
+            totalUsers: { $sum: 1 },
+          },
         },
-      },
-      {
-        // join with the challenges collection
-        $lookup: {
-          from: 'challenges',
-          localField: '_id',
-          foreignField: '_id',
-          as: 'challengeDetails',
+        {
+          $lookup: {
+            from: 'challenges',
+            let: { challengeId: '$_id' }, // Use the string challengeId from users
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $eq: [{ $toString: '$_id' }, '$$challengeId'], // Convert ObjectId to string for matching
+                  },
+                },
+              },
+            ],
+            as: 'challengeDetails',
+          },
         },
-      },
-      {
-        $unwind: '$challengeDetails',
-      },
-      {
-        $project: {
-          _id: '$challengeDetails._id',
-          title: '$challengeDetails.title',
-          description: '$challengeDetails.description',
-          category: '$challengeDetails.category',
-          steps: '$challengeDetails.steps',
+        {
+          $unwind: '$challengeDetails', // Unwind to get details of the challenge
         },
-      },
-      {
-        $sort: { totalUsers: -1 },
-      },
-      {
-        $limit: 1,
-      },
-    ])
-    .next();
- 
-  return topChallenge;
+        {
+          $project: {
+            _id: '$challengeDetails._id',
+            title: '$challengeDetails.title',
+            description: '$challengeDetails.description',
+            category: '$challengeDetails.category',
+            steps: '$challengeDetails.steps',
+            totalUsers: 1, // Include the total number of users
+          },
+        },
+        {
+          $sort: { totalUsers: -1 }, // Sort by the number of users in descending order
+        },
+        {
+          $limit: 1, // Limit to the top challenge
+        },
+      ])
+      .next(); // Get the first result from the aggregation
+
+    return topChallenge;
+  } catch (error) {
+    console.error('Error fetching top challenge:', error);
+    throw error; // Rethrow error to handle it at the caller level
+  }
 };
- 
-module.exports = {
-  fetchTopChallenge,
-};
+
+module.exports = { fetchTopChallenge };

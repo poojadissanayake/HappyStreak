@@ -66,29 +66,28 @@
         <%- include('challengeDetailModal') %>
           <!-- Trending Challenges section -->
           <div class="row mb-5">
-            <div class="col">
-              <h2 class="text-start">Trending Challenges</h2>
-              <!-- <div class="row mb-4">
-            <% challenges.forEach(challenge=> { %>
-              <% if (selectedCategory==='all' || selectedCategory===challenge.category) { %>
-                <div class="col-md-3 mb-4">
-                  <div class="card challenge-card">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                      <h5 class="card-title">
-                        <%= challenge.title %>
-                      </h5>
-                      <p class="card-text">
-                        <%= challenge.description %>
-                      </p>
-                      <a class="btn btn-add" onclick="addChallenge('<%= JSON.stringify(challenge)  %>')">+</a> -->
-              <!-- </div> -->
-              <!-- </div> -->
-              <!-- </div> -->
-              <!-- <% } %> -->
-              <!-- <% }); %> -->
-              <!-- </div>  -->
+           <div class="container my-5 trendChlBox">
+          <h2>Most Popular Challenge</h2>
+          <% if (topChallenge) { %>
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title"><%= topChallenge.title %></h3>
+              <p class="card-text"><%= topChallenge.description %></p>
+              <p><strong>Category:</strong> <%= topChallenge.category %></p>
+              <a
+                onclick="addChallenge(JSON.parse('<%= JSON.stringify(topChallenge)%>'))"
+                class="btn btn-join"
+                >Join the Challenge</a
+              >
             </div>
           </div>
+          </div>
+          <% } else { %>
+          <p>No challenges available.</p>
+          <% } %>
+        </div>
+            
+        </div>
       </div>
 
       <!-- Include Footer -->

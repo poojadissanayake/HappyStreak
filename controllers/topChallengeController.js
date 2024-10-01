@@ -1,11 +1,12 @@
 const { fetchTopChallenge } = require(`../models/topChallengeModel`);
- 
+
 const getTopChallenge = async (req, res) => {
   try {
     const topChallenge = await fetchTopChallenge();
- 
+
     res.render('challenges', {
       challenges: req.challenges,
+      selectedCategory: req.selectedCategory,
       topChallenge,
     });
   } catch (error) {
@@ -13,5 +14,5 @@ const getTopChallenge = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
- 
+
 module.exports = { getTopChallenge };
