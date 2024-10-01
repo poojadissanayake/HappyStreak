@@ -8,13 +8,10 @@ const getUserProfile = async (req, res) => {
     const userId = req.session.userId;
     console.log("from profileController getUserProfile: " + userId);
     if (!userId) {
-        // return res.status(400).json({ message: 'User ID is required.' });
         return res.status(401).json({ message: 'User not logged in' });
     }
 
     try {
-        // const user = await profileModel.findById(objectId); 
-
         const user = await profileModel.findById(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
@@ -26,8 +23,7 @@ const getUserProfile = async (req, res) => {
 
         // Fetch challenge details for each user challenge
         const challenges = await Promise.all(userChallenges.map(async (userChallenge) => {
-
-            const challenge = await profileModel.getChallengeById(userChallenge.challengeId);
+            const challenge = await profileModel.getChallengeById(new ObjectId(userChallenge.challengeId));
             console.log('Challenge ID:', userChallenge.challengeId);
             if (!challenge) return null;
 
@@ -65,7 +61,6 @@ const getUserProfile = async (req, res) => {
 
 // Delete a specific challenge
 const deleteChallenge = async (req, res) => {
-    // const { userId, challengeId } = req.query;
     const userId = req.session.userId;
     const { challengeId } = req.body;
 
@@ -75,7 +70,6 @@ const deleteChallenge = async (req, res) => {
 
     try {
         await profileModel.deleteUserChallenge(userId, challengeId);
-        // await profileModel.deleteUserChallenge(new ObjectId(userId), new ObjectId(challengeId));
         res.status(200).json({ success: true, message: 'Challenge deleted successfully' });
     } catch (error) {
         console.error('Error deleting challenge:', error);
@@ -85,9 +79,7 @@ const deleteChallenge = async (req, res) => {
 
 // Update challenge progress
 const updateChallengeProgress = async (req, res) => {
-    // const { userId, challengeId } = req.query;
     const userId = req.session.userId;
-    // const { progress } = req.body;
     const { challengeId, progress } = req.body;
 
     if (!userId || !challengeId || progress === undefined) {
@@ -96,7 +88,6 @@ const updateChallengeProgress = async (req, res) => {
 
     try {
         const updated = await profileModel.updateUserProgress(userId, challengeId, progress);
-        // const updated = await profileModel.updateUserProgress(new ObjectId(userId), new ObjectId(challengeId), progress);
         if (updated) {
             res.status(200).json({ success: true, message: 'Progress updated successfully' });
         } else {

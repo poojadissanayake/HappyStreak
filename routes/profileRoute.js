@@ -3,7 +3,6 @@ const profileController = require('../controllers/profileController');
 const router = express.Router();
 
 // Route for retrieving user profile
-// router.get('/profile/:userId', profileController.getUserProfile);
 router.get('/profile', async (req, res) => {
     try {
       const userId = req.session.userId;  
