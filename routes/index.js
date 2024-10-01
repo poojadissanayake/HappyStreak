@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const app = express();
 
-// Import challengeRoute
 const challengeRoute = require('./challengesRoute');
 const userChallengeRoute = require('./userChallengeRoute');
 const contactRoute = require('./contactRoute')
 const userController = require("../controllers/userController");
+const profileController = require('../controllers/profileController');
 
 // Import profileRoute
 const profileRoute = require('./profileRoute');
@@ -41,15 +41,11 @@ router.post("/register", userController.registerUser);
 // Forgot password routes
 router.get("/forgotpassword", userController.renderForgotPassword);
 router.post("/forgotpassword", userController.handleForgotPassword);
+router.get('/profile', profileController.getUserProfile);
 
-// Profile route
-router.get('/profile', (req, res) => {
-    res.render('profile');
-});
-
-// to-do: check if this is working once camille setup profile with userId
 app.get("/getUserId", (req, res) => {
   if (req.session.userId) {
+    console.log(req.session.userId);
     res.json({ userId: req.session.userId });
   } else {
     res.status(401).json({ message: "No logged in user" });

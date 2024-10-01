@@ -26,7 +26,7 @@ function postLogin(values) {
     type: "POST",
     data: values,
     success: (result) => {
-      if (result.statusCode === 201) {
+      if (result.statusCode === 200) {
         // set token in local storage
         window.localStorage.setItem("token", result.data.id);
 

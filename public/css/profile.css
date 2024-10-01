@@ -130,6 +130,14 @@ h3 {
   background-color: #91ddcf !important; 
 }
 
+.progress-bar-0 { width: 0%; }
+.progress-bar-16 { width: 16.67%; }
+.progress-bar-33 { width: 33.33%; }
+.progress-bar-50 { width: 50%; }
+.progress-bar-66 { width: 66.67%; }
+.progress-bar-83 { width: 83.33%; }
+.progress-bar-100 { width: 100%; }
+
 .custom-button {
   background-color: #91ddcf !important;
   color: black; 
