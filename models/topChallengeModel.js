@@ -1,4 +1,5 @@
 const { getDB } = require('../dbConnection');
+
 const { ObjectId } = require('mongodb');
 
 const fetchTopChallenge = async () => {
