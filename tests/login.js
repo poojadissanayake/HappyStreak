@@ -46,7 +46,7 @@ describe("Login", function () {
     });
   });
 
-  //
+  // test to check if user can login successfully
   it("should login successfully", function (done) {
     var options = {
       url: "http://localhost:3000/login",
