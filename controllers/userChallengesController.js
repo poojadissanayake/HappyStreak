@@ -1,7 +1,7 @@
-const { addUserChallenge, updateChallengeProgress } = require('../models/userChallengeModel');
+const { addUserChallenge, updateChallengeProgress, findUserChallenges } = require('../models/userChallengeModel');
 
 const joinChallenge = async (req, res) => {
-    console.log('Request body:', req.body); 
+    console.log('Request body:', req.body);
     const { userId, challengeId, steps } = req.body;
 
     if (!userId || !challengeId || !steps) {
@@ -9,6 +9,13 @@ const joinChallenge = async (req, res) => {
     }
 
     try {
+        const existingChallenge = await findUserChallenges(userId);
+        // .some -> array method in js tests if at least one element in the array passes the test implemented by the given function -> existingChallenge
+        const isChallengeExists = existingChallenge.some(challenge => challenge.challengeId.toString() === challengeId);
+
+        if (isChallengeExists) {
+            return res.status(200).json({ message: 'Wow! You already participate in this Challenge.' });
+        }
         await addUserChallenge(userId, challengeId, steps);
         res.status(200).json({ message: 'Challenge added successfully' });
     } catch (error) {
