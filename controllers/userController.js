@@ -11,7 +11,10 @@ async function loginUser(req, res) {
     const user = await userModel.findUserByEmail(email);
     console.log("Fetched user:", user);
     if (!user) {
-      return res.render("login", { error: "Invalid credentials" });
+      return res.json({
+        statusCode: 401,
+        message: "Invalid credentials",
+      });
     }
     if (user) {
       console.log("User found in database:", user);
@@ -26,13 +29,12 @@ async function loginUser(req, res) {
         return res.json({
           statusCode: 200,
           message: "Login successful",
-          data: { id: user._id }
+          data: { id: user._id },
         });
-      }
-      else {
+      } else {
         return res.json({
           statusCode: 401,
-          message: "Invalid credentials",
+          message: "Password is incorrect",
         });
       }
     } else {
@@ -41,10 +43,12 @@ async function loginUser(req, res) {
         message: "Invalid credentials",
       });
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Login error:", error);
-    return res.render("login", { error: "Something went wrong" });
+    return res.json({
+      statusCode: 401,
+      message: "Invalid credentials",
+    });
   }
 }
 
