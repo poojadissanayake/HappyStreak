@@ -15,6 +15,7 @@
       <div class="container my-5">
         <div class="row mb-5">
           <div class="col">
+            <div id="alertContainer"></div>
             <h2 class="text-start">Challenges</h2>
 
             <!-- Filter challenges by category -->
@@ -65,39 +66,41 @@
         <!-- Modal to show the challenge details -->
         <%- include('challengeDetailModal') %>
           <!-- Trending Challenges section -->
-          <div id="alertContainer"></div>
           <div class="row mb-5">
-           <div class="container my-5 trendChlBox">
-          <h2>Most Popular Challenge</h2>
-          <% if (topChallenge) { %>
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title"><%= topChallenge.title %></h3>
-              <p class="card-text"><%= topChallenge.description %></p>
-              <p><strong>Category:</strong> <%= topChallenge.category %></p>
-              <a
-                onclick="addChallenge(JSON.parse('<%= JSON.stringify(topChallenge)%>'))"
-                class="btn btn-join"
-                >Join the Challenge</a
-              >
+            <div class="container my-5 trendChlBox">
+              <h2>Most Popular Challenge</h2>
+              <% if (topChallenge) { %>
+                <div class="card">
+                  <div class="card-body">
+                    <h3 class="card-title">
+                      <%= topChallenge.title %>
+                    </h3>
+                    <p class="card-text">
+                      <%= topChallenge.description %>
+                    </p>
+                    <p><strong>Category:</strong>
+                      <%= topChallenge.category %>
+                    </p>
+                    <a onclick="addChallenge(JSON.parse('<%= JSON.stringify(topChallenge)%>'))"
+                      class="btn btn-join">Join the Challenge</a>
+                  </div>
+                </div>
             </div>
+            <% } else { %>
+              <p>No challenges available.</p>
+              <% } %>
           </div>
-          </div>
-          <% } else { %>
-          <p>No challenges available.</p>
-          <% } %>
-        </div>
-            
-        </div>
-      </div>
 
-      <!-- Include Footer -->
-      <%- include('footer') %>
+      </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/userChallenge.js"></script>
-  <script src="/js/challengeModalDetail.js"></script>
+  <!-- Include Footer -->
+  <%- include('footer') %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/userChallenge.js"></script>
+    <script src="/js/challengeModalDetail.js"></script>
 </body>
 
 </html>
