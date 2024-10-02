@@ -23,57 +23,64 @@ app.use(express.urlencoded({ extended: true }));
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
 
-// Parse JSON bodies
-app.use(express.json());
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up session middleware
 const sessionMiddleware = session({
-    secret: '1qaz2wsx@A',  
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://admin:sQbQ7UpBocNpW85I@cluster0.c1bcmhv.mongodb.net/',
-        collectionName: 'sessions',
-    }),
-    cookie: { secure: false }  // Set to true if using HTTPS
+  secret: '1qaz2wsx@A',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
 });
 
 app.use(sessionMiddleware);
 
+app.use((req, res, next) => {
+  // this allows the use of req.io in any controller
+  req.io = io;  
+  next();
+});
+
+app.get('/getUserId', (req, res) => {
+  if (req.session.userId) {
+      res.json({ userId: req.session.userId });
+  } else {
+      res.status(404).json({ message: 'User not logged in' });
+  }
+});
+
 // Pass the session middleware to Socket.IO
 io.use((socket, next) => {
-    sessionMiddleware(socket.request, socket.request.res || {}, next);
+  sessionMiddleware(socket.request, socket.request.res || {}, next);
 });
 
 // Use routes
 app.use('/', routes);
+// app.use('/user', userRoutes);
 
 // Socket.IO connection handler
 io.on('connection', (socket) => {
-    const session = socket.request.session;
-    
-    console.log('user connected');
-    
-    if (session.userId) {
-        console.log(`User ID from session: ${session.userId}`);
-    } else {
-        console.log('No user in session');
-    }
-    
-    socket.on('markStep', (data) => {
-        const { challengeId, step } = data;
-        // Handle marking the step in the challenge for this user --> should work on this later
-        console.log(`Marking step ${step} of challenge ${challengeId} for user ${session.userId}`);
-    });
+  const session = socket.request.session;
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
+  if (session.userId) {
+    console.log(`User ID from session: ${session.userId}`);
+  } else {
+    console.log('No user in session');
+  }
+
+  socket.on('createUserSession', (data) => {
+    session.userId = data.userId;
+    session.save();
+    console.log(`Session created for user: ${data.userId}`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
 });
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at http://localhost:${port}`);
 });

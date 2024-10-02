@@ -1,213 +1,213 @@
 /* color variable definitions */
 :root {
-    --primary-color: #B1AFFF;
-    --secondary-color: #E8C5E5;
-    --text-primary-color: #242424;
-    --smooth-bg: #ffe6c6;
-    --calm-green: #91DDCF;
-    --some-color: #F7F9F2;
-    --calm-yellow: #FDF7C3;
+  --primary-color: #B1AFFF;
+  --secondary-color: #E8C5E5;
+  --text-primary-color: #242424;
+  --smooth-bg: #ffe6c6;
+  --calm-green: #91DDCF;
+  --some-color: #F7F9F2;
+  --calm-yellow: #FDF7C3;
 }
 
 /* html and body take up the full height of the viewport */
 html,
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    margin-bottom: 0;
-    padding-bottom: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .row {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 /* Apply flexbox to the main container to push footer to the bottom */
 .body-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .navbar-custom {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 .navbar-custom .navbar-brand {
-    color: var(--text-primary-color);
+  color: var(--text-primary-color);
 }
 
 .footer-custom {
-    margin: 0;
-    padding: 0;
-    margin-top: auto;
-    background-color: var(--primary-color);
-    color: var(--text-primary-color);
+  margin: 0;
+  padding: 0;
+  margin-top: auto;
+  background-color: var(--primary-color);
+  color: var(--text-primary-color);
 }
 
 .hero-custom {
-    background-color: var(--smooth-bg);
-    color: var(--text-primary-color);
+  background-color: var(--smooth-bg);
+  color: var(--text-primary-color);
 }
 
 button.btn-custom {
-    background-color: var(--calm-green);
-    border-color: var(--calm-green);
-    color: #383838;
+  background-color: var(--calm-green);
+  border-color: var(--calm-green);
+  color: #383838;
 }
 
 button.btn-custom:hover {
-    background-color: #57cc99;
-    border-color: #57cc99;
+  background-color: #57cc99;
+  border-color: #57cc99;
 }
 
 .custom-card {
-    background-color: var(--secondary-color) !important;
-    color: var(--text-primary-color) !important;
-    border: none !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--text-primary-color) !important;
+  border: none !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .team-card {
-    background-color: var(--smooth-bg) !important;
-    color: var(--text-primary-color) !important;
-    border: none !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  background-color: var(--smooth-bg) !important;
+  color: var(--text-primary-color) !important;
+  border: none !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .features-section {
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 60px 0;
-    margin-bottom: 0;
-    flex-grow: 1;
-    color: var(--text-primary-color);
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px 0;
+  margin-bottom: 0;
+  flex-grow: 1;
+  color: var(--text-primary-color);
 }
 
 .footer-custom {
-    margin: 0;
-    padding: 0;
-    margin-top: auto;
-    background-color: var(--primary-color);
-    color: var(--text-primary-color);
+  margin: 0;
+  padding: 0;
+  margin-top: auto;
+  background-color: var(--primary-color);
+  color: var(--text-primary-color);
 }
 
 .team-profile {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid var(--primary-color);
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
 }
 
 .about-body {
-    background-image: url('/images/background.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+  background-image: url('/images/background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .contact-body {
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--text-primary-color);
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--text-primary-color);
 }
 
 .login-body {
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--text-primary-color);
-    
-   
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--text-primary-color);
+  
+ 
 }
 
 .register-body {
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--text-primary-color);
-    
-   
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--text-primary-color);
+  
+ 
 }
 
 .forgot-body {
-    background-image: url('/images/background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: var(--text-primary-color);
-    
-   
+  background-image: url('/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--text-primary-color);
+  
+ 
 }
 
 
 .contact-card {
-    max-width: 600px;
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .login-card {
-    margin-top: 50px;
-    max-width: 600px;
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-    padding-top: 10px;
+  margin-top: 50px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  padding-top: 10px;
 }
 
 .register-card {
-    
-    max-width: 600px;
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-    padding-top: 10px;
+  
+  max-width: 600px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  padding-top: 10px;
 }
 
 .forgot-card {
-    margin-top: 30px;
-    max-width: 600px;
-    width: 100%;
-    border-radius: 8px;
-    overflow: hidden;
-    padding-top: 10px;
+  margin-top: 30px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  padding-top: 10px;
 }
 
 
 
 .card-body {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 .card-title {
-    font-size: 2rem;
-    color: var(--text-primary-color);
+  font-size: 2rem;
+  color: var(--text-primary-color);
 }
 
 .card-text {
-    color: var(--text-primary-color);
+  color: var(--text-primary-color);
 }
 
 .btn-custom {
-    background-color: var(--calm-green);
-    border-color: var(--calm-green);
-    color: #383838;
+  background-color: var(--calm-green);
+  border-color: var(--calm-green);
+  color: #383838;
 }
 
 .btn-custom:hover {
-    background-color: #57cc99;
-    border-color: #57cc99;
+  background-color: #57cc99;
+  border-color: #57cc99;
 }

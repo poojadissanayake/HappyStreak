@@ -1,44 +1,45 @@
 const { getDB } = require('../dbConnection');
 const { ObjectId } = require('mongodb'); // Import ObjectId
 
-// Fetch a user by their ID from the users collection
-exports.findById = async (userId) => {
+// Fetch a user by their userId from the <users> collection
+const findById = async (userId) => {
     const db = getDB();
-    const collection = db.collection('users');
-    return await collection.findOne({ _id: new ObjectId(userId) }); // Use new ObjectId()
+    return await db.collection('users').findOne({ _id: new ObjectId(userId) });
 };
 
-// Fetch user challenges by user ID
-exports.getUserChallenges = async (userId) => {
+// Fetch user challenges by userId
+const getUserChallenges = async (userId) => {
     const db = getDB();
-    const collection = db.collection('user_challenges');
-    const challenges = await collection.find({ userId: new ObjectId(userId) }).toArray(); // Change user_id to userId
-    return challenges;
+    return await db.collection('user_challenges').find({ userId: userId }).toArray();
 };
 
-// Fetch challenge details by challenge ID
-exports.getChallengeById = async (challengeId) => {
+// Fetch challenge details by challengeId
+const getChallengeById = async (challengeId) => {
     const db = getDB();
-    const collection = db.collection('challenges');
-    return await collection.findOne({ _id: new ObjectId(challengeId) }); // Use new ObjectId()
+    return await db.collection('challenges').findOne({ _id: new ObjectId(challengeId) }); // challengeId in <challenges> collection is in ObjectID type
 };
 
 // Delete user's specific challenge
-exports.deleteUserChallenge = async (userId, challengeId) => {
+const deleteUserChallenge = async (userId, challengeId) => {
     const db = getDB();
-    const collection = db.collection('user_challenges');
-    await collection.deleteOne({ userId: new ObjectId(userId), challengeId: new ObjectId(challengeId) }); // Use new ObjectId()
+    const result = await db.collection('user_challenges').deleteOne({
+        userId: userId,
+        challengeId: challengeId 
+    });
+    
+    return result;
 };
 
-// Update progress of user
-exports.updateUserProgress = async (userId, challengeId, progress) => {
+// Update progress of a challenge for a user
+const updateUserProgress = async (userId, challengeId, progress) => {
     const db = getDB();
-    const collection = db.collection('user_challenges');
-
-    const result = await collection.updateOne(
-        { userId: new ObjectId(userId), challengeId: new ObjectId(challengeId) }, // Use new ObjectId()
+    
+    const result = await db.collection('user_challenges').updateOne(
+        { userId: userId, challengeId: challengeId }, 
         { $set: { progress: progress } }
     );
-
-    return result.modifiedCount > 0;
+    
+    return result.modifiedCount > 0; 
 };
+
+module.exports = { findById, getUserChallenges, getChallengeById, deleteUserChallenge, updateUserProgress };
