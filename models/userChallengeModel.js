@@ -5,6 +5,12 @@ const addUserChallenge = async (userId, challengeId, steps) => {
     try {
         const db = getDB();
         const userChallengesCollection = db.collection('user_challenges');
+         // Check if the user is already participating in the challenge
+         const existingChallenge = await userChallengesCollection.findOne({ userId, challengeId });
+         if (existingChallenge) {
+             return { success: false, message: "Wow! You already participate in this Challenge." };
+         }
+         
         const result = await userChallengesCollection.insertOne({ userId, challengeId, steps, progress: 0 });
         console.log("useid at userchalleng:" + userId);
         console.log('Challenge added to DB:', result);
@@ -15,11 +21,16 @@ const addUserChallenge = async (userId, challengeId, steps) => {
     }
 };
 
-const findUserChallenges = async (userId) => {
+const findUserChallenges = async (userId, challengeId = null) => {
     const db = getDB();
     const userChallengesCollection = db.collection('user_challenges');
 
     try {
+        const query = { userId };
+        if (challengeId) {
+            // Filter by specific challenge if challengeId is provided
+            query.challengeId = challengeId;
+        }
         const challenges = await userChallengesCollection.find({ userId }).toArray();
         console.log("Retrieved User Challenges:", challenges);
         return challenges;
