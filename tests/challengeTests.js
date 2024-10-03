@@ -71,7 +71,7 @@ describe("Challenges", function () {
 
         try {
             // Replace with the mock function
-            userChallengeModel.findUserChallenges = mockFindUserChallenges;
+            challenge.findUserChallenges = mockFindUserChallenges;
 
             // Send the POST request to add the challenge
             const res = await chai.request(baseUrl)
@@ -87,7 +87,7 @@ describe("Challenges", function () {
             expect(res.body).to.have.property("message").that.equals("Challenge added successfully");
         } finally {
             // Restore the original function
-            userChallengeModel.findUserChallenges = originalFindUserChallenges;
+            challenge.findUserChallenges = originalFindUserChallenges;
         }
     });
 
@@ -100,7 +100,7 @@ describe("Challenges", function () {
         const originalFindUserChallenges = challenge.findUserChallenges;
 
         try {
-            userChallengeModel.findUserChallenges = mockFindUserChallenges;
+            challenge.findUserChallenges = mockFindUserChallenges;
 
             const res = await chai.request(baseUrl)
                 .post(userChallengeUrl)
@@ -113,7 +113,7 @@ describe("Challenges", function () {
             expect(res).to.have.status(200);
             expect(res.body).to.have.property("message").that.equals("Wow! You already participate in this Challenge.");
         } finally {
-            userChallengeModel.findUserChallenges = originalFindUserChallenges;
+            challenge.findUserChallenges = originalFindUserChallenges;
         }
     });
 });
