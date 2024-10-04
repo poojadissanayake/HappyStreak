@@ -61,53 +61,55 @@ async function registerUser(req, res) {
   try {
     const { name, email, dob, password, confirmPassword } = req.body;
 
-    // Check if passwords match
+    // Checking if all required fields are provided
+    if (!email || !password || !confirmPassword) {
+      return res.json({
+        statusCode: 422,
+        message: "Email is required", 
+      });
+    }
+
+    // Checking if passwords match
     if (password !== confirmPassword) {
       return res.json({
         statusCode: 422,
-        message: "Passwords do not match",
+        message: "Passwords do not match.",
       });
-      // return res.render("register", { error: "Passwords do not match" });
     }
 
-    // Check if email is already in use
+    // Checking if email is already in use
     const existingUser = await userModel.findUserByEmail(email);
     if (existingUser) {
       return res.json({
         statusCode: 422,
         message: "Email already in use",
       });
-      // return res.render("register", { error: "Email already in use" });
     }
 
-    // Hash the password before storing it in the database
+    // Hashing the password before storing it in the database
     const hashedPassword = await bcrypt.hash(password, 10);
+    const dobAsDate = new Date(dob);
 
-    // Convert dob to Date object
-    const dobAsDate = new Date(dob); // Convert the string from the form to a Date object
-
-    // Create new user in the database
+    // Creating new user in the database
     await userModel.createUser({
       name,
       email,
       dob: dobAsDate,
       password: hashedPassword,
     });
+
     return res.json({
       statusCode: 201,
       message: "Registered Successfully!",
     });
-    // res.redirect("/login");
   } catch (error) {
     console.error("Registration error:", error);
-    return res.json({
-      statusCode: 401,
-      message: error,
+    return res.status(500).json({
+      statusCode: 500,
+      message: "An error occurred during registration",
     });
-    // res.render("register", { error: "Something went wrong" });
   }
 }
-
 // Placeholder for forgot password logic
 async function renderForgotPassword(req, res) {
   res.render("forgotpassword");
