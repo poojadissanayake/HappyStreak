@@ -11,9 +11,9 @@ const challengeUrl = "/challenges";
 const userChallengeUrl = "/userChallenges/joinChallenge";
 
 // Mock user and challenge data
-const mockUserId = "mockUserId4";
+const mockUserId = "mockUserId725";
 const mockChallenge = {
-    _id: "mockChallengeId4",
+    _id: "mockChallengeId725",
     steps: [{ stepNumber: 1, completed: false }]
 };
 
